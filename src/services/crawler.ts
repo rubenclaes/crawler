@@ -16,17 +16,16 @@ export default class Crawler {
 
   private browser: any;
 
+  private mailService = new MailService();
+
   async crawl(pageUrl?: string) {
     if (pageUrl) {
       this.pageUrl = pageUrl;
     }
     this.browser = await puppeteer.use(StealthPlugin()).launch({
-      headless: true,
+      headless: false,
 
-      args: [
-        '--disable-web-security',
-        '--disable-features=IsolateOrigins,site-per-process',
-      ],
+      args: ['--disable-features=IsolateOrigins,site-per-process'],
     });
 
     const page = await this.browser.newPage();
@@ -47,6 +46,11 @@ export default class Crawler {
       await this.browser.close();
       console.info('Tab Closed');
     } catch (error) {
+      this.mailService
+        .sendMail(['ruben.claes@euri.com'], 'Error: Crawling', 'Fout gebeurd')
+        .then((msg) => {
+          console.log(this.success(`sendMail result :(${msg})`));
+        });
       console.error(this.error(error));
     }
   }
@@ -115,8 +119,6 @@ export default class Crawler {
       '#collectingdayForm > div > div:nth-child(1) > p',
     );
 
-    const mailService = new MailService();
-
     if (timesDom) {
       const text = await page.evaluate(
         (timesDom) => timesDom.textContent,
@@ -129,7 +131,7 @@ export default class Crawler {
       const text = 'Er zijn terug slots vrij in Colruyt Hasselt!';
       console.log(this.success(text));
 
-      mailService
+      this.mailService
         .sendMail(
           ['noa-swinnen@hotmail.com', 'ruben.claes@euri.com'],
           'Colruyt Hasselt',

@@ -1,5 +1,7 @@
 import * as nodemailer from 'nodemailer';
 
+import { GMAIL_USER, GMAIL_PASSWORD } from '../utils/config';
+
 export class MailService {
   private transporter: nodemailer.Transporter;
 
@@ -7,8 +9,8 @@ export class MailService {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'rubebotto@gmail.com',
-        pass: `Nbaster1992'`,
+        user: GMAIL_USER,
+        pass: GMAIL_PASSWORD,
       },
     });
   }
