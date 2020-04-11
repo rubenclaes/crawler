@@ -3,6 +3,8 @@ import chalk from 'chalk';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
+import { LOGIN_NAME, PASSWORD } from '../utils/config';
+
 export default class Crawler {
   error = chalk.bold.red;
   warning = chalk.keyword('orange');
@@ -70,8 +72,8 @@ export default class Crawler {
 
     //console.log(frame.url());
 
-    await frame.type('input[name="loginName"]', 'rubenclaes@outlook.com');
-    await frame.type('input[name="password"]', `Nbaster12'`);
+    await frame.type('input[name="loginName"]', LOGIN_NAME);
+    await frame.type('input[name="password"]', PASSWORD);
     await frame.click('#loginBtn');
 
     await page.waitFor(6000);
@@ -112,9 +114,15 @@ export default class Crawler {
     );
 
     if (timesDom) {
-      console.log(this.warning(timesDom));
+      const text = await page.evaluate(
+        (timesDom) => timesDom.textContent,
+        timesDom,
+      );
+      console.log(this.warning(text));
+      return text;
     } else {
       console.log(this.success('Er zijn terug slots vrij in Colruyt Hasselt'));
+      return 'Er zijn terug slots vrij in Colruyt Hasselt';
     }
   }
 }
