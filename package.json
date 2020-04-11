@@ -1,0 +1,57 @@
+{
+  "name": "node-ts-starter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Ruben Claes",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsnd --respawn -r @babel/register src/index.ts",
+    "build": "babel ./src -d ./dist --extensions .ts",
+    "typecheck": "tsc",
+    "start": "node dist/index.js",
+    "lint:base": "eslint --ext .js,.json,.ts",
+    "lint": "yarn lint:base 'src/**'"
+  },
+  "lint-staged": {
+    "src/**/*": [
+      "yarn lint:base --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn typecheck && lint-staged"
+    }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "@babel/register": "^7.8.3",
+    "@types/chalk": "^2.2.0",
+    "@types/node": "^13.11.1",
+    "@types/nodemailer": "^6.4.0",
+    "@types/puppeteer": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
+    "prettier": "^2.0.4",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.7.5"
+  },
+  "engines": {
+    "node": ">= 10.15.0"
+  },
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "puppeteer": "^2.1.1",
+    "puppeteer-extra": "^3.1.9",
+    "puppeteer-extra-plugin-stealth": "^2.4.9"
+  }
+}
