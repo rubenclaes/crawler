@@ -16,9 +16,10 @@ export default class Crawler {
     }
     const browser = await puppeteer
       .use(StealthPlugin())
-      .launch({ headless: true, args: ['--no-sandbox'] });
+      .launch({ headless: false, slowMo: 200 });
 
     const page = await browser.newPage();
+    //await page.setViewport({ width: 1920, height: 1080 });
 
     try {
       await page.goto(this.pageUrl);
@@ -29,9 +30,25 @@ export default class Crawler {
       });
 
       console.log(this.success('Picture taken!'));
+
+      await this.login(page);
+
       await browser.close();
     } catch (error) {
       console.error(this.error(error));
     }
+  }
+
+  async login(page: any) {
+    const loginBtn = await page.$(
+      'body > header > div.nav-top > div > div > div.nav-top__session.text-right > ul > li.session__xtra > button',
+    );
+    if (loginBtn) {
+      await loginBtn.click();
+    } else {
+      console.error(this.warning('Login button not found'));
+    }
+
+    await page.waitFor(5000);
   }
 }
