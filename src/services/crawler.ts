@@ -3,6 +3,8 @@ import chalk from 'chalk';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
+import { MailService } from '../services/mail';
+
 import { LOGIN_NAME, PASSWORD } from '../utils/config';
 
 export default class Crawler {
@@ -113,12 +115,25 @@ export default class Crawler {
       '#collectingdayForm > div > div:nth-child(1) > p',
     );
 
+    const mailService = new MailService();
+
     if (timesDom) {
       const text = await page.evaluate(
         (timesDom) => timesDom.textContent,
         timesDom,
       );
       console.log(this.warning(text));
+
+      mailService
+        .sendMail(
+          ['noa-swinnen@hotmail.com', 'ruben.claes@euri.com'],
+          'Colruyt Hasselt',
+          text,
+        )
+        .then((msg) => {
+          console.log(this.success(`sendMail result :(${msg})`));
+        });
+
       return text;
     } else {
       console.log(this.success('Er zijn terug slots vrij in Colruyt Hasselt'));
