@@ -124,6 +124,11 @@ export default class Crawler {
       );
       console.log(this.warning(text));
 
+      return text;
+    } else {
+      const text = 'Er zijn terug slots vrij in Colruyt Hasselt!';
+      console.log(this.success(text));
+
       mailService
         .sendMail(
           ['noa-swinnen@hotmail.com', 'ruben.claes@euri.com'],
@@ -133,11 +138,7 @@ export default class Crawler {
         .then((msg) => {
           console.log(this.success(`sendMail result :(${msg})`));
         });
-
       return text;
-    } else {
-      console.log(this.success('Er zijn terug slots vrij in Colruyt Hasselt'));
-      return 'Er zijn terug slots vrij in Colruyt Hasselt';
     }
   }
 }
