@@ -1,0 +1,409 @@
+<form
+  id="collectingdayForm"
+  action="/cogo/AppServlet"
+  method="post"
+  class="form-horizontal"
+>
+  <input
+    type="hidden"
+    name="m"
+    value="PopupCollectingDayCtrl.requestChooseCollectingday"
+  />
+  <div class="form-group">
+    <div class="col-md-12">
+      <ul class="_bColpntDays dayMenu">
+        <li class="day3 _bDay-100 active">
+          <a href="#" idx="100"
+            ><span class="coldate-day">dinsdag</span><br /><span
+              class="coldate-date"
+              >14/4/2020</span
+            ></a
+          >
+        </li>
+        <li class="day4 _bDay-200">
+          <a href="#" idx="200"
+            ><span class="coldate-day">woensdag</span><br /><span
+              class="coldate-date"
+              >15/4/2020</span
+            ></a
+          >
+        </li>
+        <li class="day5 _bDay-300">
+          <a href="#" idx="300"
+            ><span class="coldate-day">donderdag</span><br /><span
+              class="coldate-date"
+              >16/4/2020</span
+            ></a
+          >
+        </li>
+        <li class="day6 _bDay-400">
+          <a href="#" idx="400"
+            ><span class="coldate-day">vrijdag</span><br /><span
+              class="coldate-date"
+              >17/4/2020</span
+            ></a
+          >
+        </li>
+        <li class="day7 _bDay-500">
+          <a href="#" idx="500"
+            ><span class="coldate-day">zaterdag</span><br /><span
+              class="coldate-date"
+              >18/4/2020</span
+            ></a
+          >
+        </li>
+      </ul>
+      <div class="_bColpntWindows _bWndw-100" idx="100" style="display: block;">
+        <ul class="timeList timeList-c1">
+          <li>
+            <label for="i3.1"><b>Volzet tussen 8u30 en 9u</b></label>
+          </li>
+          <li>
+            <label for="i3.12"><b>Volzet tussen 9u en 10u</b></label>
+          </li>
+          <li>
+            <label for="i3.2"><b>Volzet tussen 10u en 11u</b></label>
+          </li>
+          <li>
+            <label for="i3.3"><b>Volzet tussen 11u en 12u</b></label>
+          </li>
+          <li>
+            <label for="i3.4"><b>Volzet tussen 12u en 13u</b></label>
+          </li>
+          <li>
+            <label for="i3.5"><b>Volzet tussen 13u en 14u</b></label>
+          </li>
+          <li>
+            <label for="i3.6"><b>Volzet tussen 14u en 15u</b></label>
+          </li>
+          <li>
+            <input
+              id="i3.7"
+              type="radio"
+              value="3_7"
+              name="viewCollectingDayWindow"
+            /><label for="i3.7">tussen 15u en 16u</label>
+          </li>
+          <li>
+            <input
+              id="i3.8"
+              type="radio"
+              value="3_8"
+              name="viewCollectingDayWindow"
+            /><label for="i3.8">tussen 16u en 17u</label>
+          </li>
+          <li>
+            <input
+              id="i3.9"
+              type="radio"
+              value="3_9"
+              name="viewCollectingDayWindow"
+            /><label for="i3.9">tussen 17u en 18u</label>
+          </li>
+          <li>
+            <input
+              id="i3.10"
+              type="radio"
+              value="3_10"
+              name="viewCollectingDayWindow"
+            /><label for="i3.10">tussen 18u en 19u</label>
+          </li>
+          <li>
+            <input
+              id="i3.11"
+              type="radio"
+              value="3_11"
+              name="viewCollectingDayWindow"
+            /><label for="i3.11">tussen 19u en 20u</label>
+          </li>
+        </ul>
+      </div>
+      <div class="_bColpntWindows _bWndw-200" idx="200" style="display: none;">
+        <ul class="timeList timeList-c1">
+          <li>
+            <label for="i4.1"><b>Volzet tussen 8u30 en 9u</b></label>
+          </li>
+          <li>
+            <label for="i4.12"><b>Volzet tussen 9u en 10u</b></label>
+          </li>
+          <li>
+            <label for="i4.2"><b>Volzet tussen 10u en 11u</b></label>
+          </li>
+          <li>
+            <label for="i4.3"><b>Volzet tussen 11u en 12u</b></label>
+          </li>
+          <li>
+            <label for="i4.4"><b>Volzet tussen 12u en 13u</b></label>
+          </li>
+          <li>
+            <label for="i4.5"><b>Volzet tussen 13u en 14u</b></label>
+          </li>
+          <li>
+            <label for="i4.6"><b>Volzet tussen 14u en 15u</b></label>
+          </li>
+          <li>
+            <label for="i4.7"><b>Volzet tussen 15u en 16u</b></label>
+          </li>
+          <li>
+            <label for="i4.8"><b>Volzet tussen 16u en 17u</b></label>
+          </li>
+          <li>
+            <label for="i4.9"><b>Volzet tussen 17u en 18u</b></label>
+          </li>
+          <li>
+            <label for="i4.10"><b>Volzet tussen 18u en 19u</b></label>
+          </li>
+          <li>
+            <label for="i4.11"><b>Volzet tussen 19u en 20u</b></label>
+          </li>
+        </ul>
+      </div>
+      <div class="_bColpntWindows _bWndw-300" idx="300" style="display: none;">
+        <ul class="timeList timeList-c1">
+          <li>
+            <label for="i5.1"><b>Volzet tussen 8u30 en 10u</b></label>
+          </li>
+          <li>
+            <label for="i5.2"><b>Volzet tussen 10u en 11u</b></label>
+          </li>
+          <li>
+            <label for="i5.3"><b>Volzet tussen 11u en 12u</b></label>
+          </li>
+          <li>
+            <label for="i5.4"><b>Volzet tussen 12u en 13u</b></label>
+          </li>
+          <li>
+            <label for="i5.5"><b>Volzet tussen 13u en 14u</b></label>
+          </li>
+          <li>
+            <label for="i5.6"><b>Volzet tussen 14u en 15u</b></label>
+          </li>
+          <li>
+            <label for="i5.7"><b>Volzet tussen 15u en 16u</b></label>
+          </li>
+          <li>
+            <label for="i5.8"><b>Volzet tussen 16u en 17u</b></label>
+          </li>
+          <li>
+            <label for="i5.9"><b>Volzet tussen 17u en 18u</b></label>
+          </li>
+          <li>
+            <label for="i5.10"><b>Volzet tussen 18u en 19u</b></label>
+          </li>
+          <li>
+            <label for="i5.11"><b>Volzet tussen 19u en 20u</b></label>
+          </li>
+        </ul>
+      </div>
+      <div class="_bColpntWindows _bWndw-400" idx="400" style="display: none;">
+        <ul class="timeList timeList-c1">
+          <li>
+            <label for="i6.1"><b>Volzet tussen 8u30 en 9u</b></label>
+          </li>
+          <li>
+            <input
+              id="i6.13"
+              type="radio"
+              value="6_13"
+              name="viewCollectingDayWindow"
+            /><label for="i6.13">tussen 9u en 10u</label>
+          </li>
+          <li>
+            <input
+              id="i6.2"
+              type="radio"
+              value="6_2"
+              name="viewCollectingDayWindow"
+            /><label for="i6.2">tussen 10u en 11u</label>
+          </li>
+          <li>
+            <input
+              id="i6.3"
+              type="radio"
+              value="6_3"
+              name="viewCollectingDayWindow"
+            /><label for="i6.3">tussen 11u en 12u</label>
+          </li>
+          <li>
+            <input
+              id="i6.4"
+              type="radio"
+              value="6_4"
+              name="viewCollectingDayWindow"
+            /><label for="i6.4">tussen 12u en 13u</label>
+          </li>
+          <li>
+            <input
+              id="i6.5"
+              type="radio"
+              value="6_5"
+              name="viewCollectingDayWindow"
+            /><label for="i6.5">tussen 13u en 14u</label>
+          </li>
+          <li>
+            <input
+              id="i6.6"
+              type="radio"
+              value="6_6"
+              name="viewCollectingDayWindow"
+            /><label for="i6.6">tussen 14u en 15u</label>
+          </li>
+          <li>
+            <input
+              id="i6.7"
+              type="radio"
+              value="6_7"
+              name="viewCollectingDayWindow"
+            /><label for="i6.7">tussen 15u en 16u</label>
+          </li>
+          <li>
+            <input
+              id="i6.8"
+              type="radio"
+              value="6_8"
+              name="viewCollectingDayWindow"
+            /><label for="i6.8">tussen 16u en 17u</label>
+          </li>
+          <li>
+            <input
+              id="i6.9"
+              type="radio"
+              value="6_9"
+              name="viewCollectingDayWindow"
+            /><label for="i6.9">tussen 17u en 18u</label>
+          </li>
+          <li>
+            <input
+              id="i6.10"
+              type="radio"
+              value="6_10"
+              name="viewCollectingDayWindow"
+            /><label for="i6.10">tussen 18u en 19u</label>
+          </li>
+          <li>
+            <input
+              id="i6.11"
+              type="radio"
+              value="6_11"
+              name="viewCollectingDayWindow"
+            /><label for="i6.11">tussen 19u en 20u</label>
+          </li>
+          <li>
+            <input
+              id="i6.12"
+              type="radio"
+              value="6_12"
+              name="viewCollectingDayWindow"
+            /><label for="i6.12">tussen 20u en 21u</label>
+          </li>
+        </ul>
+      </div>
+      <div class="_bColpntWindows _bWndw-500" idx="500" style="display: none;">
+        <ul class="timeList timeList-c1">
+          <li>
+            <input
+              id="i7.12"
+              type="radio"
+              value="7_12"
+              name="viewCollectingDayWindow"
+            /><label for="i7.12">tussen 8u30 en 9u</label>
+          </li>
+          <li>
+            <input
+              id="i7.1"
+              type="radio"
+              value="7_1"
+              name="viewCollectingDayWindow"
+            /><label for="i7.1">tussen 9u en 10u</label>
+          </li>
+          <li>
+            <input
+              id="i7.2"
+              type="radio"
+              value="7_2"
+              name="viewCollectingDayWindow"
+            /><label for="i7.2">tussen 10u en 11u</label>
+          </li>
+          <li>
+            <input
+              id="i7.3"
+              type="radio"
+              value="7_3"
+              name="viewCollectingDayWindow"
+            /><label for="i7.3">tussen 11u en 12u</label>
+          </li>
+          <li>
+            <input
+              id="i7.4"
+              type="radio"
+              value="7_4"
+              name="viewCollectingDayWindow"
+            /><label for="i7.4">tussen 12u en 13u</label>
+          </li>
+          <li>
+            <input
+              id="i7.5"
+              type="radio"
+              value="7_5"
+              name="viewCollectingDayWindow"
+            /><label for="i7.5">tussen 13u en 14u</label>
+          </li>
+          <li>
+            <input
+              id="i7.6"
+              type="radio"
+              value="7_6"
+              name="viewCollectingDayWindow"
+            /><label for="i7.6">tussen 14u en 15u</label>
+          </li>
+          <li>
+            <input
+              id="i7.7"
+              type="radio"
+              value="7_7"
+              name="viewCollectingDayWindow"
+            /><label for="i7.7">tussen 15u en 16u</label>
+          </li>
+          <li>
+            <input
+              id="i7.8"
+              type="radio"
+              value="7_8"
+              name="viewCollectingDayWindow"
+            /><label for="i7.8">tussen 16u en 17u</label>
+          </li>
+          <li>
+            <input
+              id="i7.9"
+              type="radio"
+              value="7_9"
+              name="viewCollectingDayWindow"
+            /><label for="i7.9">tussen 17u en 18u</label>
+          </li>
+          <li>
+            <input
+              id="i7.10"
+              type="radio"
+              value="7_10"
+              name="viewCollectingDayWindow"
+            /><label for="i7.10">tussen 18u en 19u</label>
+          </li>
+          <li>
+            <input
+              id="i7.11"
+              type="radio"
+              value="7_11"
+              name="viewCollectingDayWindow"
+            /><label for="i7.11">tussen 19u en 20u</label>
+          </li>
+        </ul>
+      </div>
+      <div class="_bSelectedSlotUnavailable"></div>
+    </div>
+    <div class="col-md-12 text-center">
+      <button type="submit" class="btn btn-primary modal-btn-center">
+        Afhaaluur bevestigen
+      </button>
+    </div>
+  </div>
+</form>

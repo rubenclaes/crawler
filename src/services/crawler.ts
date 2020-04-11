@@ -18,7 +18,7 @@ export default class Crawler {
     }
     this.browser = await puppeteer.use(StealthPlugin()).launch({
       headless: true,
-      slowMo: 200,
+
       args: [
         '--disable-web-security',
         '--disable-features=IsolateOrigins,site-per-process',
@@ -30,9 +30,9 @@ export default class Crawler {
 
     try {
       await page.goto(this.pageUrl);
-      await page.waitFor(6000);
+      await page.waitFor(5000);
       await page.screenshot({
-        path: 'src/public/img/stealth.png',
+        path: 'src/public/img/login.png',
         fullPage: true,
       });
 
@@ -41,6 +41,7 @@ export default class Crawler {
       await this.login(page);
 
       await this.browser.close();
+      console.info('Tab Closed');
     } catch (error) {
       console.error(this.error(error));
     }
@@ -61,27 +62,25 @@ export default class Crawler {
 
     await page.waitForSelector('iframe[src*=ecustomermw]');
 
-    console.log(page.frames());
+    //console.log(page.frames());
 
     const frame = await page
       .frames()
       .find((f) => f.url().includes('ecustomermw'));
 
-    console.log(frame.url());
+    //console.log(frame.url());
 
     await frame.type('input[name="loginName"]', 'rubenclaes@outlook.com');
     await frame.type('input[name="password"]', `Nbaster12'`);
     await frame.click('#loginBtn');
 
-    await page.waitFor(8000);
+    await page.waitFor(6000);
 
     await this.checkAvailability(page);
   }
 
   async checkAvailability(page: any) {
-    const checkTimesBtn = await page.$(
-      'body > header > div.nav-top > div > div > div.nav-top__session.text-right > ul > li.session__collect.hidden-xs > span.time.hidden-sm > a"',
-    );
+    const checkTimesBtn = await page.$('[data-menutab="dashBoard"]');
 
     if (checkTimesBtn) {
       await checkTimesBtn.click();
@@ -89,7 +88,7 @@ export default class Crawler {
       console.error(this.warning('checkTimesBtn button not found'));
     }
 
-    await page.waitFor(4000);
+    await page.waitFor(3000);
 
     const chooseTimeBtn = await page.$(
       '#popUpWindow > div.modal-dialog.modal-lg > div > div.modal-body.modal-dashboard > div.row.dashboard-row > div.col-md-11 > div:nth-child(1) > div.col-md-8 > span.timeslot > span',
@@ -101,6 +100,21 @@ export default class Crawler {
       console.error(this.warning('chooseTimeBtn button not found'));
     }
 
-    await page.waitFor(4000);
+    await page.waitFor(3000);
+
+    await page.screenshot({
+      path: 'src/public/img/times.png',
+      fullPage: false,
+    });
+
+    const timesDom = await page.$(
+      '#collectingdayForm > div > div:nth-child(1) > p',
+    );
+
+    if (timesDom) {
+      console.log(this.warning(timesDom));
+    } else {
+      console.log(this.success('Er zijn terug slots vrij in Colruyt Hasselt'));
+    }
   }
 }

@@ -1,0 +1,26 @@
+<form
+  id="collectingdayForm"
+  action="/cogo/AppServlet"
+  method="post"
+  class="form-horizontal"
+>
+  <input
+    type="hidden"
+    name="m"
+    value="PopupCollectingDayCtrl.requestChooseCollectingday"
+  />
+  <div class="form-group">
+    <div class="col-md-12">
+      <p class="noCapacityFound">
+        Het gekozen afhaalpunt is volzet. Check dit
+        <a
+          target="_blank"
+          href="https://colruyt.collectandgo.be/cogo/nl/afhaalpunt-beschikbaarheid"
+          >overzicht om afhaalpunten</a
+        >
+        te vinden met beschikbare afhaalmomenten.
+      </p>
+    </div>
+    <div class="col-md-12 text-center"></div>
+  </div>
+</form>
