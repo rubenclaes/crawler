@@ -2,6 +2,7 @@ import chalk from 'chalk';
 
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import Adblocker from 'puppeteer-extra-plugin-adblocker';
 
 import { MailService } from './mail';
 
@@ -19,14 +20,19 @@ export default class CrawlerService {
     if (pageUrl) {
       this.pageUrl = pageUrl;
     }
-    this.browser = await puppeteer.use(StealthPlugin()).launch({
-      headless: false,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-features=IsolateOrigins,site-per-process',
-      ],
-    });
+
+    this.browser = await puppeteer
+
+      .use(StealthPlugin())
+
+      .launch({
+        headless: true,
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-features=IsolateOrigins,site-per-process',
+        ],
+      });
 
     console.log('browser launched');
 
