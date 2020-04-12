@@ -25,7 +25,11 @@ export default class CrawlerService {
     }
     this.browser = await puppeteer.use(StealthPlugin()).launch({
       headless: true,
-      args: ['--disable-features=IsolateOrigins,site-per-process'],
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-features=IsolateOrigins,site-per-process',
+      ],
     });
 
     const page = await this.browser.newPage();
