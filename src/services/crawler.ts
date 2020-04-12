@@ -120,6 +120,13 @@ export default class CrawlerService {
 
     await page.waitFor(5000);
 
+    await page.screenshot({
+      path: 'availibility.png',
+      fullPage: true,
+    });
+
+    console.log('availibility picture taken');
+
     const chooseTimeBtn = await page.$(
       '#popUpWindow > div.modal-dialog.modal-lg > div > div.modal-body.modal-dashboard > div.row.dashboard-row > div.col-md-11 > div:nth-child(1) > div.col-md-8 > span.timeslot > span',
     );
@@ -127,6 +134,16 @@ export default class CrawlerService {
     if (chooseTimeBtn) {
       await chooseTimeBtn.click();
     } else {
+      this.mailService
+        .sendMail(
+          ['ruben.claes@euri.com'],
+          'Error: Crawling',
+          'chooseTimeBtn button not found',
+          'availibility.png',
+        )
+        .then((msg) => {
+          console.log(`sendMail result :(${msg})`);
+        });
       console.error('chooseTimeBtn button not found');
       throw new Error('chooseTimeBtn button not found');
     }
