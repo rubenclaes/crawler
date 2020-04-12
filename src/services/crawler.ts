@@ -52,7 +52,7 @@ export default class CrawlerService {
         .sendMail(
           ['ruben.claes@euri.com'],
           'Error: Crawling',
-          'Fout gebeurd',
+          error,
           'login.png',
         )
         .then((msg) => {
