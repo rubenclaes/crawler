@@ -3,11 +3,11 @@ import chalk from 'chalk';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
-import { MailService } from '../services/mail';
+import { MailService } from './mail';
 
 import { LOGIN_NAME, PASSWORD } from '../utils/config';
 
-export default class Crawler {
+export default class CrawlerService {
   error = chalk.bold.red;
   warning = chalk.keyword('orange');
   success = chalk.keyword('green');
@@ -23,8 +23,7 @@ export default class Crawler {
       this.pageUrl = pageUrl;
     }
     this.browser = await puppeteer.use(StealthPlugin()).launch({
-      headless: false,
-
+      headless: true,
       args: ['--disable-features=IsolateOrigins,site-per-process'],
     });
 
@@ -33,7 +32,7 @@ export default class Crawler {
 
     try {
       await page.goto(this.pageUrl);
-      await page.waitFor(5000);
+      await page.waitFor(6000);
       await page.screenshot({
         path: 'src/public/img/login.png',
         fullPage: true,
@@ -106,6 +105,7 @@ export default class Crawler {
       await chooseTimeBtn.click();
     } else {
       console.error(this.warning('chooseTimeBtn button not found'));
+      throw new Error('chooseTimeBtn button not found');
     }
 
     await page.waitFor(3000);
@@ -132,11 +132,7 @@ export default class Crawler {
       console.log(this.success(text));
 
       this.mailService
-        .sendMail(
-          ['noa-swinnen@hotmail.com', 'ruben.claes@euri.com'],
-          'Colruyt Hasselt',
-          text,
-        )
+        .sendMail(['', 'ruben.claes@euri.com'], 'Colruyt Hasselt', text)
         .then((msg) => {
           console.log(this.success(`sendMail result :(${msg})`));
         });
