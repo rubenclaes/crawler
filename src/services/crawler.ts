@@ -9,10 +9,6 @@ import { LOGIN_NAME, PASSWORD } from '../utils/config';
 import path from 'path';
 
 export default class CrawlerService {
-  private error: chalk.Chalk = chalk.bold.red;
-  private warning = chalk.keyword('orange');
-  private success = chalk.keyword('green');
-
   private pageUrl = 'https://colruyt.collectandgo.be/cogo/nl/aanmelden';
 
   private browser: any;
@@ -32,6 +28,8 @@ export default class CrawlerService {
       ],
     });
 
+    console.log('browser launched');
+
     const page = await this.browser.newPage();
     //await page.setViewport({ width: 1920, height: 1080 });
 
@@ -43,7 +41,7 @@ export default class CrawlerService {
         fullPage: true,
       });
 
-      console.log(this.success('Picture taken!'));
+      console.log('Picture taken!');
 
       await this.login(page);
 
@@ -58,13 +56,14 @@ export default class CrawlerService {
           'login.png',
         )
         .then((msg) => {
-          console.log(this.success(`sendMail result :(${msg})`));
+          console.log(`sendMail result :(${msg})`);
         });
-      console.error(this.error(error));
+      console.error(error);
     }
   }
 
   async login(page: any) {
+    console.log('Trying to log in!');
     /*  const loginBtn = await page.$(
       'body > header > div.nav-top > div > div > div.nav-top__session.text-right > ul > li.session__xtra > button',
     );
@@ -102,7 +101,7 @@ export default class CrawlerService {
     if (checkTimesBtn) {
       await checkTimesBtn.click();
     } else {
-      console.error(this.warning('checkTimesBtn button not found'));
+      console.error('checkTimesBtn button not found');
     }
 
     await page.waitFor(5000);
@@ -114,7 +113,7 @@ export default class CrawlerService {
     if (chooseTimeBtn) {
       await chooseTimeBtn.click();
     } else {
-      console.error(this.warning('chooseTimeBtn button not found'));
+      console.error('chooseTimeBtn button not found');
       throw new Error('chooseTimeBtn button not found');
     }
 
@@ -134,12 +133,12 @@ export default class CrawlerService {
         (timesDom: any) => timesDom.textContent,
         timesDom,
       );
-      console.log(this.warning(text));
+      console.log(text);
 
       return text;
     } else {
       const text = 'Er zijn terug slots vrij in Colruyt Hasselt!';
-      console.log(this.success(text));
+      console.log(text);
 
       this.mailService
         .sendMail(
@@ -149,7 +148,7 @@ export default class CrawlerService {
           'times.png',
         )
         .then((msg) => {
-          console.log(this.success(`sendMail result :(${msg})`));
+          console.log(`sendMail result :(${msg})`);
         });
       return text;
     }

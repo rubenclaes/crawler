@@ -1,8 +1,11 @@
 import { schedule } from 'node-cron';
 import CrawlerService from './services/crawler';
 
+console.info('Starting crawlerservice');
 const crawler = new CrawlerService();
 crawler.crawl();
+console.info('Crawlerservice ended');
+
 /* 
 const morningTask = schedule('10 * * * *', () => {
   console.log('crawler => starting');
