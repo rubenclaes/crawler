@@ -20,7 +20,7 @@ export default class CrawlerService {
       this.pageUrl = pageUrl;
     }
     this.browser = await puppeteer.use(StealthPlugin()).launch({
-      headless: true,
+      headless: false,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
@@ -31,6 +31,14 @@ export default class CrawlerService {
     console.log('browser launched');
 
     const page = await this.browser.newPage();
+    //turns request interceptor on
+    await page.setRequestInterception(true);
+
+    //if the page makes a  request to a resource type of image or stylesheet then abort that request
+    page.on('request', (request: any) => {
+      if (request.resourceType() === 'image') request.abort();
+      else request.continue();
+    });
     //await page.setViewport({ width: 1920, height: 1080 });
 
     try {
