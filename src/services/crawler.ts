@@ -51,7 +51,12 @@ export default class CrawlerService {
       console.info('Tab Closed');
     } catch (error) {
       this.mailService
-        .sendMail(['ruben.claes@euri.com'], 'Error: Crawling', 'Fout gebeurd')
+        .sendMail(
+          ['ruben.claes@euri.com'],
+          'Error: Crawling',
+          'Fout gebeurd',
+          'login.png',
+        )
         .then((msg) => {
           console.log(this.success(`sendMail result :(${msg})`));
         });
@@ -100,7 +105,7 @@ export default class CrawlerService {
       console.error(this.warning('checkTimesBtn button not found'));
     }
 
-    await page.waitFor(3000);
+    await page.waitFor(5000);
 
     const chooseTimeBtn = await page.$(
       '#popUpWindow > div.modal-dialog.modal-lg > div > div.modal-body.modal-dashboard > div.row.dashboard-row > div.col-md-11 > div:nth-child(1) > div.col-md-8 > span.timeslot > span',
@@ -137,7 +142,12 @@ export default class CrawlerService {
       console.log(this.success(text));
 
       this.mailService
-        .sendMail(['', 'ruben.claes@euri.com'], 'Colruyt Hasselt', text)
+        .sendMail(
+          ['', 'ruben.claes@euri.com'],
+          'Colruyt Hasselt',
+          text,
+          'times.png',
+        )
         .then((msg) => {
           console.log(this.success(`sendMail result :(${msg})`));
         });

@@ -15,12 +15,22 @@ export class MailService {
     });
   }
 
-  sendMail(to: string[], subject: string, content: string): Promise<void> {
+  sendMail(
+    to: string[],
+    subject: string,
+    content: string,
+    image: string,
+  ): Promise<void> {
     const options = {
       from: 'rubes.claes@gmail.com',
       to: to,
       subject: subject,
       text: content,
+      attachments: [
+        {
+          path: image,
+        },
+      ],
     };
 
     return new Promise<void>(
