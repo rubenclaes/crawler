@@ -6,6 +6,7 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { MailService } from './mail';
 
 import { LOGIN_NAME, PASSWORD } from '../utils/config';
+import path from 'path';
 
 export default class CrawlerService {
   private error: chalk.Chalk = chalk.bold.red;
@@ -34,7 +35,7 @@ export default class CrawlerService {
       await page.goto(this.pageUrl);
       await page.waitFor(6000);
       await page.screenshot({
-        path: 'src/public/img/login.png',
+        path: 'login.png',
         fullPage: true,
       });
 
@@ -111,7 +112,7 @@ export default class CrawlerService {
     await page.waitFor(3000);
 
     await page.screenshot({
-      path: 'src/public/img/times.png',
+      path: 'times.png',
       fullPage: false,
     });
 
