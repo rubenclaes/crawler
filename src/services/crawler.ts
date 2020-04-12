@@ -8,9 +8,9 @@ import { MailService } from './mail';
 import { LOGIN_NAME, PASSWORD } from '../utils/config';
 
 export default class CrawlerService {
-  error = chalk.bold.red;
-  warning = chalk.keyword('orange');
-  success = chalk.keyword('green');
+  private error: chalk.Chalk = chalk.bold.red;
+  private warning = chalk.keyword('orange');
+  private success = chalk.keyword('green');
 
   private pageUrl = 'https://colruyt.collectandgo.be/cogo/nl/aanmelden';
 
@@ -73,7 +73,7 @@ export default class CrawlerService {
 
     const frame = await page
       .frames()
-      .find((f) => f.url().includes('ecustomermw'));
+      .find((f: any) => f.url().includes('ecustomermw'));
 
     //console.log(frame.url());
 
@@ -121,7 +121,7 @@ export default class CrawlerService {
 
     if (timesDom) {
       const text = await page.evaluate(
-        (timesDom) => timesDom.textContent,
+        (timesDom: any) => timesDom.textContent,
         timesDom,
       );
       console.log(this.warning(text));

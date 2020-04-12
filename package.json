@@ -25,12 +25,12 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "@babel/node": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
-    "@babel/preset-typescript": "^7.8.3",
-    "@babel/register": "^7.8.3",
-    "@types/chalk": "^2.2.0",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "@babel/register": "^7.9.0",
     "@types/node": "^13.11.1",
     "@types/nodemailer": "^6.4.0",
     "@types/puppeteer": "^2.0.1",
@@ -49,6 +49,7 @@
     "node": ">= 10.15.0"
   },
   "dependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/dotenv": "^8.2.0",
     "@types/node-cron": "^2.0.3",
     "chalk": "^4.0.0",
