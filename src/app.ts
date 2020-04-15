@@ -1,19 +1,14 @@
 import { schedule } from 'node-cron';
 import CrawlerService from './services/crawler';
+import Connect from './services/mongo';
+import { MONGO_USERNAME, MONGO_PASSWORD } from './utils/config';
 
-console.info('Starting crawlerservice');
+//const db = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@ds113906.mlab.com:13906/${MONGO_USERNAME}`;
+
+//Connect({ db });
+
 const crawler = new CrawlerService();
 crawler.crawl();
-console.info('Crawlerservice ended');
-
-/* 
-const morningTask = schedule('10 * * * *', () => {
-  console.log('crawler => starting');
-  crawler.crawl();
-  console.log('crawler => finished');
-});
-
-morningTask.start(); */
 
 process.on('SIGTERM', (signal) => {
   console.log(`Process ${process.pid} has been interrupted`);

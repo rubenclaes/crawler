@@ -8,35 +8,38 @@ import { MailService } from './mail';
 
 import { LOGIN_NAME, PASSWORD } from '../utils/config';
 import path from 'path';
+import {
+  upsertSupermarket,
+  findSupermarket,
+} from '../controllers/supermarketController';
 
 export default class CrawlerService {
-  private pageUrl = 'https://colruyt.collectandgo.be/cogo/nl/aanmelden';
-
+  private pageUrl =
+    'https://colruyt.collectandgo.be/cogo/nl/afhaalpunt-beschikbaarheid';
+  private filterValue = 'HASSELT (COLRUYT)';
   private browser: any;
-
   private mailService = new MailService();
 
   async crawl(pageUrl?: string) {
+    console.info('Starting crawlerservice');
+
     if (pageUrl) {
       this.pageUrl = pageUrl;
     }
-
-    this.browser = await puppeteer
-
-      .use(StealthPlugin())
-
-      .launch({
-        headless: true,
-        args: [
-          '--no-sandbox',
-          '--disable-setuid-sandbox',
-          '--disable-features=IsolateOrigins,site-per-process',
-        ],
-      });
+    // Launch browser
+    this.browser = await puppeteer.use(StealthPlugin()).launch({
+      headless: false,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-features=IsolateOrigins,site-per-process',
+      ],
+    });
 
     console.log('browser launched');
-
+    // Wait for new Page created
     const page = await this.browser.newPage();
+    console.log('new Page created');
     //turns request interceptor on
     await page.setRequestInterception(true);
 
@@ -48,31 +51,124 @@ export default class CrawlerService {
     //await page.setViewport({ width: 1920, height: 1080 });
 
     try {
-      await page.goto(this.pageUrl);
+      await page.goto(this.pageUrl, { waitUntil: 'networkidle2', timeout: 0 });
       await page.waitFor(6000);
       await page.screenshot({
-        path: 'login.png',
+        path: 'beschikbaarheid.png',
         fullPage: true,
       });
 
       console.log('Picture taken!');
 
-      await this.login(page);
+      const newWinners = await page.evaluate(() => {
+        const rowNodeList = document.querySelectorAll(
+          '#mainContent > div > div > div.col-md-9 > div > div > table > tbody > tr',
+        );
+        const rowArray = Array.from(rowNodeList);
+
+        return rowArray.slice(1).map((tr) => {
+          const dataNodeList = tr.querySelectorAll('td');
+          const dataArray = Array.from(dataNodeList);
+          const [name, day1, day2, day3, day4, day5, day6] = dataArray.map(
+            (td) => td.textContent,
+          );
+
+          return {
+            name,
+            day1,
+            day2,
+            day3,
+            day4,
+            day5,
+            day6,
+          };
+        });
+      });
+
+      const store = this.filterByValue(newWinners, this.filterValue);
+
+      const search = 'beschikbaar';
+
+      const res = store.filter((obj) =>
+        Object.values(obj).some((val) => val.includes(search)),
+      );
+
+      if (res.length != 0) {
+        console.log(res);
+        const text = `Er zijn terug slots vrij in ${store[0].name}!`;
+        console.log(text);
+
+        this.mailService
+          .sendMail(
+            ['noa-swinnen@hotmail.com', 'ruben.claes@euri.com'],
+            store[0].name,
+            text,
+            'beschikbaarheid.png',
+          )
+          .then((msg) => {
+            console.log(`sendMail result :(${msg})`);
+          });
+      }
+
+      /*    await upsertSupermarket(
+        store[0].name.toString(),
+        store[0].day1.toString(),
+        store[0].day2.toString(),
+        store[0].day3.toString(),
+        store[0].day4.toString(),
+        store[0].day5.toString(),
+        store[0].day6.toString(),
+      );
+ */
+      const formattedStore = this.outputJSON(store);
+
+      // await this.checkDifference();
+
+      console.log(formattedStore);
 
       await this.browser.close();
-      console.info('Tab Closed');
+      console.info('Crawlerservice ended');
     } catch (error) {
       this.mailService
         .sendMail(
           ['ruben.claes@euri.com'],
           'Error: Crawling',
           error,
-          'login.png',
+          'beschikbaarheid.png',
         )
         .then((msg) => {
           console.log(`sendMail result :(${msg})`);
         });
       console.error(error);
+    }
+  }
+
+  async checkDifference() {
+    await findSupermarket({ name: 'john', age: { $gte: 18 } });
+  }
+
+  filter() {
+    const filterWinners = (winners) => {
+      return winners.filter((winner) => {
+        return AREA_PATTERNS.some((pattern) => pattern.test(winner.area));
+      });
+    };
+  }
+
+  filterByValue(array, string) {
+    return array.filter((o) =>
+      Object.keys(o).some((k) =>
+        o[k].toLowerCase().includes(string.toLowerCase()),
+      ),
+    );
+  }
+
+  outputJSON(array: []) {
+    if (array.length) {
+      return JSON.stringify(array, null, 2);
+    } else {
+      console.log('Nothing found');
+      return array;
     }
   }
 
@@ -110,7 +206,8 @@ export default class CrawlerService {
   }
 
   async checkAvailability(page: any) {
-    const checkTimesBtn = await page.$('[data-menutab="dashBoard"]');
+    //colruyt.collectandgo.be/cogo/nl/afhaalpunt-beschikbaarheid
+    const checkTimesBtn = await page.$(`[data-menutab="dashBoard"]`);
 
     if (checkTimesBtn) {
       await checkTimesBtn.click();
@@ -127,12 +224,24 @@ export default class CrawlerService {
 
     console.log('availibility picture taken');
 
-    const chooseTimeBtn = await page.$(
-      '#popUpWindow > div.modal-dialog.modal-lg > div > div.modal-body.modal-dashboard > div.row.dashboard-row > div.col-md-11 > div:nth-child(1) > div.col-md-8 > span.timeslot > span',
-    );
+    await page.waitForSelector(`[data-shops="Colruyt"]`);
 
-    if (chooseTimeBtn) {
-      await chooseTimeBtn.click();
+    const chooseTimesBtn = await page.$$(`[data-shops="Colruyt"]`);
+
+    console.log(chooseTimesBtn[5]);
+
+    //wait page.click(chooseTimesButton);
+    /*   await page.evaluate(() => {
+      document.querySelectorAll('[data-shops="Colruyt"]')[5].click();
+    }); */
+
+    /*   if (data.chooseTimeBtn) {
+      await page.evaluate(() => {
+        let chooseTimesButn = document.querySelectorAll(
+          '[data-shops="Colruyt"]',
+        )[5] as HTMLElement;
+        chooseTimesButn.click();
+      });
     } else {
       this.mailService
         .sendMail(
@@ -146,9 +255,9 @@ export default class CrawlerService {
         });
       console.error('chooseTimeBtn button not found');
       throw new Error('chooseTimeBtn button not found');
-    }
+    } */
 
-    await page.waitFor(3000);
+    /*    await page.waitFor(3000);
 
     await page.screenshot({
       path: 'times.png',
@@ -182,6 +291,6 @@ export default class CrawlerService {
           console.log(`sendMail result :(${msg})`);
         });
       return text;
-    }
+    } */
   }
 }
