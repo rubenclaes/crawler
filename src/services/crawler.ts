@@ -89,8 +89,8 @@ export default class CrawlerService {
 
       const search = 'beschikbaar';
 
-      const res = store.filter((obj) =>
-        Object.values(obj).some((val) => val.includes(search)),
+      const res = store.filter((obj: any) =>
+        Object.values(obj).some((val: any) => val.includes(search)),
       );
 
       if (res.length != 0) {
@@ -143,20 +143,8 @@ export default class CrawlerService {
     }
   }
 
-  async checkDifference() {
-    await findSupermarket({ name: 'john', age: { $gte: 18 } });
-  }
-
-  filter() {
-    const filterWinners = (winners) => {
-      return winners.filter((winner) => {
-        return AREA_PATTERNS.some((pattern) => pattern.test(winner.area));
-      });
-    };
-  }
-
-  filterByValue(array, string) {
-    return array.filter((o) =>
+  filterByValue(array: any, string: string) {
+    return array.filter((o: any) =>
       Object.keys(o).some((k) =>
         o[k].toLowerCase().includes(string.toLowerCase()),
       ),
