@@ -28,7 +28,7 @@ export default class CrawlerService {
     }
     // Launch browser
     this.browser = await puppeteer.use(StealthPlugin()).launch({
-      headless: false,
+      headless: true,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
