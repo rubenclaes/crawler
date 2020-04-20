@@ -70,7 +70,7 @@ export const updateSupermarkets = async (
   supermarkets: SupermarketDocument[],
 ) => {
   // save multiple documents to the collection referenced by Book Model
-  Supermarket.collection.updateMany(supermarkets, function (err, docs) {
+  Supermarket.collection.updateMany(supermarkets, function (err: any) {
     if (err) {
       return console.error(err);
     } else {
@@ -83,15 +83,31 @@ export const findSupermarketAndUpdate = async (
   id: any,
   dataObj: SupermarketDocument,
 ) => {
-  // save multiple documents to the collection referenced by Book Model
-  Supermarket.collection.findOneAndUpdate({ _id: id }, dataObj, function (
-    err,
-    docs,
-  ) {
-    if (err) {
-      return console.error(err);
-    } else {
-      console.log('Supermarket updated to Collection');
-    }
-  });
+  const filter = {
+    name: dataObj.name,
+  };
+
+  Supermarket.collection.findOneAndUpdate(
+    filter,
+    {
+      $set: {
+        name: dataObj.name,
+        week: {
+          day1: dataObj.week.day1,
+          day2: dataObj.week.day2,
+          day3: dataObj.week.day3,
+          day4: dataObj.week.day4,
+          day5: dataObj.week.day5,
+          day6: dataObj.week.day6,
+        },
+      },
+    },
+    function (err, docs) {
+      if (err) {
+        return console.error(err);
+      } else {
+        console.log('Supermarket updated to Collection');
+      }
+    },
+  );
 };

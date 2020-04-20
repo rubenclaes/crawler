@@ -1,18 +1,19 @@
-import errorHandler from 'errorhandler';
+/* import errorHandler from 'errorhandler';
 
 import app from './app';
-
+ */
 /**
  * Error Handler. Provides full stack - remove for production
  */
-if (process.env.NODE_ENV === 'development') {
+/* if (process.env.NODE_ENV === 'development') {
   // only use in development
   app.use(errorhandler());
 }
-
+*/
 /**
  * Start Express server.
  */
+/*
 const server = app.listen(app.get('port'), () => {
   console.log(
     '  App is running at http://localhost:%d in %s mode',
@@ -22,7 +23,7 @@ const server = app.listen(app.get('port'), () => {
   console.log('  Press CTRL-C to stop\n');
 });
 
-export default server;
+export default server; */
 
 /**
  * Required External Modules

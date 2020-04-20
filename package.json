@@ -20,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn typecheck && lint-staged"
+      "pre-commit": "yarn typecheck"
     }
   },
   "devDependencies": {

@@ -2,18 +2,12 @@ import { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
-import { diff } from 'deep-diff';
-import * as _ from 'lodash';
-
 import { MailService } from '../services/mail';
 
 import { LOGIN_NAME, PASSWORD } from './config';
-import { Supermarket } from './models/supermarket';
+
 import {
-  upsertSupermarket,
   findSupermarkets,
-  insertSupermarkets,
-  updateSupermarkets,
   findSupermarketAndUpdate,
 } from '../controllers/supermarketController';
 import { SupermarketDocument } from '../models/supermarket';
@@ -27,6 +21,7 @@ export default class Crawler {
     `HASSELT (COLRUYT)`,
     `NEERPELT (COLRUYT)`,
     `MOL (COLRUYT)`,
+    `AALTER (COLRUYT)`,
   ];
 
   private mailService = new MailService();
@@ -54,6 +49,11 @@ export default class Crawler {
 
     console.log('Browser Launched');
   }
+
+  async closeBrowser() {
+    await this.browser.close();
+    console.info('Crawlerservice ended');
+  }
   async scrapeColruyt(pageUrl?: string, supermarkets?: string[]) {
     console.log('Start scraping Colruyt');
 
@@ -76,9 +76,9 @@ export default class Crawler {
       if (request.resourceType() === 'image') request.abort();
       else request.continue();
     });
-    // await page.setViewport({ width: 1920, height: 1080 });
 
     // await page.setViewport({ width: 1920, height: 1080 });
+
     await this.page.goto(this.pageUrl, {
       waitUntil: 'networkidle2',
       timeout: 0,
@@ -89,9 +89,9 @@ export default class Crawler {
       .waitForSelector(
         '#mainContent > div > div > div.col-md-9 > div > div > table',
       )
-      .then(() => {
+      .then(async () => {
         // take a picture
-        this.takeScreenshot('beschikbaarheid.png', true);
+        await this.takeScreenshot('beschikbaarheid.png', true);
       });
 
     // Scrape Supermarkets
@@ -102,10 +102,8 @@ export default class Crawler {
       this.supermarkets,
     );
 
-    //console.log(filteredSupermarkets);
-
-    // Check Differnces
     if (filteredSupermarkets) {
+      // Check Differnces
       await this.checkDifferences(filteredSupermarkets);
     }
   }
@@ -139,7 +137,7 @@ export default class Crawler {
     console.log('Checking Differences');
 
     const dbSupermarkets = await findSupermarkets(this.supermarkets);
-    let catchDifference = false;
+
     //const differences = diff(scrapedSupermarkets, foundSupermarkets);
 
     dbSupermarkets.forEach(async (dbSupermarket, i) => {
@@ -161,13 +159,11 @@ export default class Crawler {
         await this.saveData(dbId, scrapedSupermarkets[i]);
 
         const search = 'beschikbaar';
-        const res = scrapedSupermarkets.filter((obj: any) =>
-          Object.values(obj).some((val: any) => val.includes(search)),
-        );
+        const result = Object.values(scrapedSupermarkets[i]).includes(search);
+        console.log(result);
 
-        if (res.length != 0) {
-          console.log(res);
-          const text = `<h1>${dbSupermarket.name}</h1><p> Er zijn terug slots vrij in ${dbSupermarket.name}!</p><p> Dag1: ${scrapedSupermarkets[i].week.day1} Dag2: ${scrapedSupermarkets[i].week.day1} Dag3: ${scrapedSupermarkets[i].week.day1} Dag4: ${scrapedSupermarkets[i].week.day1} Dag5: ${scrapedSupermarkets[i].week.day1} Dag6: ${scrapedSupermarkets[i].week.day1} </p> `;
+        if (Object.values(scrapedSupermarkets[i].week).includes(search)) {
+          const text = `<h1>${dbSupermarket.name}</h1><p> Er zijn terug slots vrij in ${dbSupermarket.name}!</p><p> Dag1: ${scrapedSupermarkets[i].week.day1} Dag2: ${scrapedSupermarkets[i].week.day2} Dag3: ${scrapedSupermarkets[i].week.day3} Dag4: ${scrapedSupermarkets[i].week.day4} Dag5: ${scrapedSupermarkets[i].week.day5} Dag6: ${scrapedSupermarkets[i].week.day6} </p> <p>https://colruyt.collectandgo.be/cogo/nl/afhaalpunt-beschikbaarheid</p> `;
 
           this.mailService
             .sendMail(
@@ -183,6 +179,9 @@ export default class Crawler {
       }
     });
 
+    //async sendEmail() {}
+    //async formatData() {}
+
     //console.log(differences);
     //console.log(result);
 
@@ -193,8 +192,6 @@ export default class Crawler {
   async saveData(dbId: any, scrapedSupermarket: SupermarketDocument) {
     await findSupermarketAndUpdate(dbId, scrapedSupermarket);
   }
-  async sendEmail() {}
-  async formatData() {}
 
   async takeScreenshot(path: string, fullPage: boolean): Promise<void> {
     // take a picture
@@ -203,202 +200,6 @@ export default class Crawler {
       fullPage: fullPage,
     });
     console.log('Picture taken!');
-  }
-
-  async crawl() {
-    console.info('Starting Crawler');
-
-    // Launch browser
-
-    await puppeteer
-      .use(StealthPlugin())
-      .launch({
-        headless: true,
-        args: [
-          '--no-sandbox',
-          '--disable-setuid-sandbox',
-          '--disable-features=IsolateOrigins,site-per-process',
-        ],
-      })
-      .then(async (browser) => {
-        console.info('Browser launched');
-
-        // Wait for new Page created
-        const page = await browser.newPage();
-        console.info('New Page created');
-        // turns request interceptor on
-        await page.setRequestInterception(true);
-        //if the page makes a  request to a resource type of image or stylesheet then abort that request
-        page.on('request', (request: any) => {
-          if (request.resourceType() === 'image') request.abort();
-          else request.continue();
-        });
-        // await page.setViewport({ width: 1920, height: 1080 });
-        await page.goto(this.pageUrl, {
-          waitUntil: 'networkidle2',
-          timeout: 0,
-        });
-        // take a picture
-        await page.screenshot({
-          path: 'beschikbaarheid.png',
-          fullPage: true,
-        });
-        console.log('Picture taken!');
-
-        const supermarkets = await page.evaluate(() => {
-          const rowNodeList = document.querySelectorAll(
-            '#mainContent > div > div > div.col-md-9 > div > div > table > tbody > tr',
-          );
-          const rowArray = Array.from(rowNodeList);
-
-          return rowArray.slice(1).map((tr) => {
-            const dataNodeList = tr.querySelectorAll('td');
-            const dataArray = Array.from(dataNodeList);
-            const [name, day1, day2, day3, day4, day5, day6] = dataArray.map(
-              (td) => td.textContent,
-            );
-
-            return {
-              name,
-              day1,
-              day2,
-              day3,
-              day4,
-              day5,
-              day6,
-            };
-          });
-        });
-
-        console.log(supermarkets);
-
-        const store = this.filterByValue(newWinners, this.supermarket);
-
-        const search = 'beschikbaar';
-
-        const res = store.filter((obj: any) =>
-          Object.values(obj).some((val: any) => val.includes(search)),
-        );
-
-        if (res.length != 0) {
-          console.log(res);
-          const text = `Er zijn terug slots vrij in ${store[0].name}!`;
-          console.log(text);
-
-          this.mailService
-            .sendMail(
-              ['noa-swinnen@hotmail.com', 'ruben.claes@euri.com'],
-              store[0].name,
-              text,
-              'beschikbaarheid.png',
-            )
-            .then((msg) => {
-              console.log(`sendMail result :(${msg})`);
-            });
-        }
-
-        /*    await upsertSupermarket(
-          store[0].name.toString(),
-          store[0].day1.toString(),
-          store[0].day2.toString(),
-          store[0].day3.toString(),
-          store[0].day4.toString(),
-          store[0].day5.toString(),
-          store[0].day6.toString(),
-        );
-   */
-        const formattedStore = this.outputJSON(store);
-
-        // await this.checkDifference();
-
-        console.log(formattedStore);
-
-        await this.browser.close();
-        console.info('Crawlerservice ended');
-      });
-
-    try {
-      const newWinners = await page.evaluate(() => {
-        const rowNodeList = document.querySelectorAll(
-          '#mainContent > div > div > div.col-md-9 > div > div > table > tbody > tr',
-        );
-        const rowArray = Array.from(rowNodeList);
-
-        return rowArray.slice(1).map((tr) => {
-          const dataNodeList = tr.querySelectorAll('td');
-          const dataArray = Array.from(dataNodeList);
-          const [name, day1, day2, day3, day4, day5, day6] = dataArray.map(
-            (td) => td.textContent,
-          );
-
-          return {
-            name,
-            day1,
-            day2,
-            day3,
-            day4,
-            day5,
-            day6,
-          };
-        });
-      });
-
-      const store = this.filterByValue(newWinners, this.supermarket);
-
-      const search = 'beschikbaar';
-
-      const res = store.filter((obj: any) =>
-        Object.values(obj).some((val: any) => val.includes(search)),
-      );
-
-      if (res.length != 0) {
-        console.log(res);
-        const text = `Er zijn terug slots vrij in ${store[0].name}!`;
-        console.log(text);
-
-        this.mailService
-          .sendMail(
-            ['noa-swinnen@hotmail.com', 'ruben.claes@euri.com'],
-            store[0].name,
-            text,
-            'beschikbaarheid.png',
-          )
-          .then((msg) => {
-            console.log(`sendMail result :(${msg})`);
-          });
-      }
-
-      /*    await upsertSupermarket(
-        store[0].name.toString(),
-        store[0].day1.toString(),
-        store[0].day2.toString(),
-        store[0].day3.toString(),
-        store[0].day4.toString(),
-        store[0].day5.toString(),
-        store[0].day6.toString(),
-      );
- */
-      const formattedStore = this.outputJSON(store);
-
-      // await this.checkDifference();
-
-      console.log(formattedStore);
-
-      await this.browser.close();
-      console.info('Crawlerservice ended');
-    } catch (error) {
-      this.mailService
-        .sendMail(
-          ['ruben.claes@euri.com'],
-          'Error: Crawling',
-          error,
-          'beschikbaarheid.png',
-        )
-        .then((msg) => {
-          console.log(`sendMail result :(${msg})`);
-        });
-      console.error(error);
-    }
   }
 
   filterByValue(array: any, value: string) {
