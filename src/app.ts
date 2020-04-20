@@ -1,14 +1,47 @@
-import { schedule } from 'node-cron';
-import CrawlerService from './services/crawler';
+/**
+ * Required External Modules
+ */
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+
+/**
+ * App Variables
+ */
+import Crawler from './utils/crawler';
 import Connect from './services/mongo';
-import { MONGO_USERNAME, MONGO_PASSWORD } from './utils/config';
+import { PORT, MONGO_USERNAME, MONGO_PASSWORD } from './utils/config';
 
-//const db = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@ds113906.mlab.com:13906/${MONGO_USERNAME}`;
+const port: number = parseInt(PORT as string, 10);
+const db = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@ds113906.mlab.com:13906/${MONGO_USERNAME}`;
 
-//Connect({ db });
+// Create Express server
+//const app = express();
 
-const crawler = new CrawlerService();
-crawler.crawl();
+/**
+ *  App Configuration
+ */
+
+//app.use(helmet());
+//app.use(cors());
+//app.use(express.json());
+
+Connect({ db });
+
+const crawlColruytHasselt = async () => {
+  const crawler = new Crawler(false);
+  await crawler.launchPuppeteer();
+
+  try {
+    await crawler.scrapeColruyt();
+  } catch (error) {
+    console.error(error);
+  }
+
+  return 'all done';
+};
+
+crawlColruytHasselt();
 
 process.on('SIGTERM', (signal) => {
   console.log(`Process ${process.pid} has been interrupted`);

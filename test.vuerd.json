@@ -1,0 +1,1770 @@
+{
+  "canvas": {
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": 0,
+    "scrollLeft": 0,
+    "show": {
+      "tableComment": true,
+      "columnComment": true,
+      "columnDataType": true,
+      "columnDefault": true,
+      "columnAutoIncrement": true,
+      "columnPrimaryKey": true,
+      "columnUnique": true,
+      "columnNotNull": true,
+      "relationship": true
+    },
+    "database": "MSSQL",
+    "databaseName": "Bierstock",
+    "canvasType": "ERD",
+    "language": "graphql",
+    "tableCase": "pascalCase",
+    "columnCase": "camelCase"
+  },
+  "table": {
+    "tables": [
+      {
+        "name": "Bestelling",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "d7351936-4117-4672-9893-b98440ace520",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "verkoperid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "4aed69cb-f2c3-4207-8976-c1ae1e1c69f4",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 63,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "datum",
+            "comment": "",
+            "dataType": "DATETIME",
+            "default": "",
+            "id": "7a86f0ad-42be-4b58-a45d-aec778321308",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 67,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "c05da24d-b7ba-40dd-86bf-046266afe1fb",
+        "ui": {
+          "active": false,
+          "top": 797,
+          "left": 1058,
+          "widthName": 60,
+          "widthComment": 60,
+          "zIndex": 1016
+        }
+      },
+      {
+        "name": "BestellingDetail",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "a7dabcf7-1dfa-48a4-a072-0cf8dfce799d",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "bestellingid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "5091f6ec-c93f-4d89-9c4d-c35387209be2",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 67,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "bierid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "95984467-9095-4b30-84d4-95edc841482d",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "hoeveelheid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "79db4613-c120-47bb-a845-b169ca9b8567",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 72,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "prijs",
+            "comment": "",
+            "dataType": "DECIMAL",
+            "default": "",
+            "id": "db6c1195-a950-4c7c-816d-d9bcbda769b7",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "fd052acc-52cc-4be1-89e2-7baecf15527f",
+        "ui": {
+          "active": false,
+          "top": 771.5,
+          "left": 564,
+          "widthName": 92,
+          "widthComment": 60,
+          "zIndex": 1057
+        }
+      },
+      {
+        "name": "Bier",
+        "comment": "Verzameling van alle bieren",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "5aacf372-e50c-4c63-a84a-449f0da505d1",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "biersoortid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "304559b0-c456-400a-ad35-92320dfc5c2b",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 63,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "brouwerijid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "1fc7d5be-b78b-4892-bd33-c2e1bc61c859",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 65,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "score",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "1ef0066f-d488-4bf4-b240-b4e9e6f8fc96",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "gewonnenprijzen",
+            "comment": "internationale prijzen gewonnen",
+            "dataType": "TEXT",
+            "default": "",
+            "id": "85e02abc-d175-48c1-adf7-ed2b88bc4d96",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 100,
+              "widthComment": 186,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "opmerking",
+            "comment": "",
+            "dataType": "TEXT",
+            "default": "",
+            "id": "917e7493-7f62-4664-b910-cd5010af2efa",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 63,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "35383b11-afe4-4b55-b203-b5d3a5107387",
+        "ui": {
+          "active": false,
+          "top": 380,
+          "left": 489,
+          "widthName": 60,
+          "widthComment": 162,
+          "zIndex": 1054
+        }
+      },
+      {
+        "name": "BierDetail",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "39480c9f-7931-4a49-841e-5b687673c4ac",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "bierid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "6c2dafcd-7ad2-41da-ae97-68ba461145f3",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "inhoud",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "ce1b0819-331b-4450-adf8-eefdc52fc394",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "jaar",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "6d2c969f-0c15-4869-994f-9cc575bc5716",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "verkoopprijs",
+            "comment": "",
+            "dataType": "DECIMAL",
+            "default": "",
+            "id": "fd9a6669-a6c5-4b6c-8a71-5d48c3dbbab1",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 72,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "56d99412-a474-4f46-b239-77292cc80763",
+        "ui": {
+          "active": false,
+          "top": 70.5,
+          "left": 564,
+          "widthName": 60,
+          "widthComment": 60,
+          "zIndex": 1056
+        }
+      },
+      {
+        "name": "BierDetailsVerkoper",
+        "comment": "",
+        "columns": [
+          {
+            "name": "verkoperid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "ce79222b-4f10-4428-967a-10606b29ed5b",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 63,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "e7c1c496-d878-4f2a-9075-68e213b058a1",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "bierdetailsid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "52f12873-7613-4873-8bce-d3d3ca26e797",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 71,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "48cab8ac-a9de-4d41-97c9-f2ac0e3b056a",
+        "ui": {
+          "active": false,
+          "top": 91.5,
+          "left": 1045.5,
+          "widthName": 117,
+          "widthComment": 60,
+          "zIndex": 940
+        }
+      },
+      {
+        "name": "Biersoort",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "2b6796eb-3023-41a6-8bd7-66994becee46",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "serveertemperatuur",
+            "comment": "",
+            "dataType": "DECIMAL",
+            "default": "",
+            "id": "8443ccec-c7c1-4a05-b134-c2535469d563",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 115,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "glas",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "dae302d3-be02-4efd-a4c8-fcba51011a31",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "foodpairing",
+            "comment": "",
+            "dataType": "TEXT",
+            "default": "",
+            "id": "5c8e96e7-88a0-44f8-ab31-6103829acb49",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 66,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "type",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "5768cb20-c14f-4ac1-8726-d9ed30094413",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "stijl",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "25bf2ffd-e3ae-4c64-9ae4-20da4c735cc2",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "a1b32773-b869-4e8a-8eab-ed0622168358",
+        "ui": {
+          "active": false,
+          "top": 380.5,
+          "left": 1062.5,
+          "widthName": 60,
+          "widthComment": 60,
+          "zIndex": 992
+        }
+      },
+      {
+        "name": "Brouwerij",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "9b17bc82-612e-4f05-b117-e7723eb1172f",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "naam",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "aeeb2e23-16dc-40b2-b6f4-4a87e9d43b15",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "straat",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "22fcf929-5a3d-4100-9804-1bdc859d5b56",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "gemeente",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "d522dca2-5b04-4003-9123-f2b6f4e16e12",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "postcode",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "c175f53c-9bcb-4c1a-b95a-3a5474bcf816",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "url",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "0918363d-81c5-41e5-bc1c-ab230244083e",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "land",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "dcd7127d-71bc-4def-bada-9c0a38479098",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "3b27a2bc-3089-428f-90a3-f3db346abb0a",
+        "ui": {
+          "active": false,
+          "top": 369,
+          "left": 83,
+          "widthName": 60,
+          "widthComment": 60,
+          "zIndex": 1036
+        }
+      },
+      {
+        "name": "Verkoper",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "87b5de2a-d47d-4592-84a9-1567f743de1d",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "url",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "1401d6e6-6ba7-41db-b0d7-217f15b407e1",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "naam",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "1c33ab5b-8f6b-4123-b6b3-e55e2fa7a62b",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "openingsuren",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "f5748b80-9077-4786-844d-5217078e57a9",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 81,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "straat",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "5aafa49b-0140-40af-a95c-64a49d896513",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "gemeente",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "0cc6422b-0a97-4156-a8fc-2f92c257d6cb",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "postcode",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "e3d30c92-6a32-4364-981a-92747eed219d",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "tel",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "cefd57bc-86ec-4d7b-ba11-1f4e790d9228",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "land",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "",
+            "id": "16576e4c-aa3b-4c57-a802-8aa684fa6b84",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 65,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "minbedrag",
+            "comment": "",
+            "dataType": "DECIMAL",
+            "default": "",
+            "id": "be3ee616-74b9-49c3-b3f4-e57c561e1d3a",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 63,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "0181ebc1-5217-410a-bcf1-c63ee9ee7497",
+        "ui": {
+          "active": false,
+          "top": 279,
+          "left": 1503.5,
+          "widthName": 60,
+          "widthComment": 60,
+          "zIndex": 1014
+        }
+      },
+      {
+        "name": "Voorraad",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "5f3105d7-efed-4454-addc-ff19b40791f8",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "bierdetailsid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "a6edbfff-e479-4560-a17b-1924ff783717",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 71,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "toegevoegd",
+            "comment": "",
+            "dataType": "DATETIME",
+            "default": "",
+            "id": "f1ea56ef-b2d1-4ec6-88b3-f45a414d30b3",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 70,
+              "widthComment": 60,
+              "widthDataType": 67,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "instock",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "acee1be1-c68b-46ef-9a24-6112ffa5bfdb",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "46295956-b0d1-41c5-b6cb-6b5505b10904",
+        "ui": {
+          "active": true,
+          "top": 81.5,
+          "left": 82,
+          "widthName": 60,
+          "widthComment": 60,
+          "zIndex": 1063
+        }
+      }
+    ],
+    "tableFocus": {
+      "focusName": false,
+      "focusComment": false,
+      "focusColumns": [
+        {
+          "selected": true,
+          "focusName": false,
+          "focusDataType": false,
+          "focusNotNull": true,
+          "focusDefault": false,
+          "focusComment": false,
+          "column": {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "5f3105d7-efed-4454-addc-ff19b40791f8",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        },
+        {
+          "selected": false,
+          "focusName": false,
+          "focusDataType": false,
+          "focusNotNull": false,
+          "focusDefault": false,
+          "focusComment": false,
+          "column": {
+            "name": "bierdetailsid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "a6edbfff-e479-4560-a17b-1924ff783717",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 71,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        },
+        {
+          "selected": false,
+          "focusName": false,
+          "focusDataType": false,
+          "focusNotNull": false,
+          "focusDefault": false,
+          "focusComment": false,
+          "column": {
+            "name": "toegevoegd",
+            "comment": "",
+            "dataType": "DATETIME",
+            "default": "",
+            "id": "f1ea56ef-b2d1-4ec6-88b3-f45a414d30b3",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 70,
+              "widthComment": 60,
+              "widthDataType": 67,
+              "widthDefault": 60
+            }
+          }
+        },
+        {
+          "selected": false,
+          "focusName": false,
+          "focusDataType": false,
+          "focusNotNull": false,
+          "focusDefault": false,
+          "focusComment": false,
+          "column": {
+            "name": "instock",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "acee1be1-c68b-46ef-9a24-6112ffa5bfdb",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        }
+      ],
+      "currentFocusTable": false,
+      "currentColumn": {
+        "name": "id",
+        "comment": "",
+        "dataType": "INT",
+        "default": "",
+        "id": "5f3105d7-efed-4454-addc-ff19b40791f8",
+        "option": {
+          "autoIncrement": true,
+          "primaryKey": true,
+          "unique": true,
+          "notNull": true
+        },
+        "ui": {
+          "active": false,
+          "pk": true,
+          "fk": false,
+          "pfk": false,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        }
+      },
+      "table": {
+        "name": "Voorraad",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "5f3105d7-efed-4454-addc-ff19b40791f8",
+            "option": {
+              "autoIncrement": true,
+              "primaryKey": true,
+              "unique": true,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "bierdetailsid",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "a6edbfff-e479-4560-a17b-1924ff783717",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 71,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "toegevoegd",
+            "comment": "",
+            "dataType": "DATETIME",
+            "default": "",
+            "id": "f1ea56ef-b2d1-4ec6-88b3-f45a414d30b3",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 70,
+              "widthComment": 60,
+              "widthDataType": 67,
+              "widthDefault": 60
+            }
+          },
+          {
+            "name": "instock",
+            "comment": "",
+            "dataType": "INT",
+            "default": "",
+            "id": "acee1be1-c68b-46ef-9a24-6112ffa5bfdb",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            }
+          }
+        ],
+        "id": "46295956-b0d1-41c5-b6cb-6b5505b10904",
+        "ui": {
+          "active": true,
+          "top": 81.5,
+          "left": 82,
+          "widthName": 60,
+          "widthComment": 60,
+          "zIndex": 1063
+        }
+      }
+    },
+    "edit": null,
+    "copyColumns": [],
+    "columnDraggable": null
+  },
+  "memo": {
+    "memos": []
+  },
+  "relationship": {
+    "relationships": [
+      {
+        "identification": false,
+        "id": "bfc38fe9-6610-4419-a699-22b46794b217",
+        "relationshipType": "ZeroOneN",
+        "start": {
+          "tableId": "35383b11-afe4-4b55-b203-b5d3a5107387",
+          "columnIds": [
+            "5aacf372-e50c-4c63-a84a-449f0da505d1"
+          ],
+          "x": 744,
+          "y": 582,
+          "direction": "bottom"
+        },
+        "end": {
+          "tableId": "fd052acc-52cc-4be1-89e2-7baecf15527f",
+          "columnIds": [
+            "95984467-9095-4b30-84d4-95edc841482d"
+          ],
+          "x": 742,
+          "y": 771.5,
+          "direction": "top"
+        }
+      },
+      {
+        "identification": false,
+        "id": "be0f9b3d-f626-4582-a37c-dc96e9951e99",
+        "relationshipType": "ZeroOne",
+        "start": {
+          "tableId": "a1b32773-b869-4e8a-8eab-ed0622168358",
+          "columnIds": [
+            "2b6796eb-3023-41a6-8bd7-66994becee46"
+          ],
+          "x": 1062.5,
+          "y": 481.5,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "35383b11-afe4-4b55-b203-b5d3a5107387",
+          "columnIds": [
+            "304559b0-c456-400a-ad35-92320dfc5c2b"
+          ],
+          "x": 999,
+          "y": 481,
+          "direction": "right"
+        }
+      },
+      {
+        "identification": false,
+        "id": "49cb257d-4804-4f63-9f86-f34a24547957",
+        "relationshipType": "ZeroOneN",
+        "start": {
+          "tableId": "c05da24d-b7ba-40dd-86bf-046266afe1fb",
+          "columnIds": [
+            "d7351936-4117-4672-9893-b98440ace520"
+          ],
+          "x": 1058,
+          "y": 864.25,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "fd052acc-52cc-4be1-89e2-7baecf15527f",
+          "columnIds": [
+            "5091f6ec-c93f-4d89-9c4d-c35387209be2"
+          ],
+          "x": 920,
+          "y": 861.25,
+          "direction": "right"
+        }
+      },
+      {
+        "identification": false,
+        "id": "5ee24d6a-f6e0-4c7a-be51-003c6d9893ee",
+        "relationshipType": "ZeroOne",
+        "start": {
+          "tableId": "0181ebc1-5217-410a-bcf1-c63ee9ee7497",
+          "columnIds": [
+            "87b5de2a-d47d-4592-84a9-1567f743de1d"
+          ],
+          "x": 1503.5,
+          "y": 352,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "48cab8ac-a9de-4d41-97c9-f2ac0e3b056a",
+          "columnIds": [
+            "ce79222b-4f10-4428-967a-10606b29ed5b"
+          ],
+          "x": 1400.5,
+          "y": 158.75,
+          "direction": "right"
+        }
+      },
+      {
+        "identification": false,
+        "id": "a31b46a3-3663-4eb3-9a3f-947da80fded9",
+        "relationshipType": "ZeroOne",
+        "start": {
+          "tableId": "3b27a2bc-3089-428f-90a3-f3db346abb0a",
+          "columnIds": [
+            "9b17bc82-612e-4f05-b117-e7723eb1172f"
+          ],
+          "x": 432,
+          "y": 481.25,
+          "direction": "right"
+        },
+        "end": {
+          "tableId": "35383b11-afe4-4b55-b203-b5d3a5107387",
+          "columnIds": [
+            "1fc7d5be-b78b-4892-bd33-c2e1bc61c859"
+          ],
+          "x": 489,
+          "y": 481,
+          "direction": "left"
+        }
+      },
+      {
+        "identification": false,
+        "id": "f088d685-63f5-4820-935f-5d942d7015b5",
+        "relationshipType": "ZeroOneN",
+        "start": {
+          "tableId": "35383b11-afe4-4b55-b203-b5d3a5107387",
+          "columnIds": [
+            "5aacf372-e50c-4c63-a84a-449f0da505d1"
+          ],
+          "x": 744,
+          "y": 380,
+          "direction": "top"
+        },
+        "end": {
+          "tableId": "56d99412-a474-4f46-b239-77292cc80763",
+          "columnIds": [
+            "6c2dafcd-7ad2-41da-ae97-68ba461145f3"
+          ],
+          "x": 744.5,
+          "y": 250,
+          "direction": "bottom"
+        }
+      },
+      {
+        "identification": false,
+        "id": "f088ecac-9539-4d85-92e7-9d1b44333d7f",
+        "relationshipType": "ZeroOneN",
+        "start": {
+          "tableId": "0181ebc1-5217-410a-bcf1-c63ee9ee7497",
+          "columnIds": [
+            "87b5de2a-d47d-4592-84a9-1567f743de1d"
+          ],
+          "x": 1503.5,
+          "y": 498,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "c05da24d-b7ba-40dd-86bf-046266afe1fb",
+          "columnIds": [
+            "4aed69cb-f2c3-4207-8976-c1ae1e1c69f4"
+          ],
+          "x": 1412,
+          "y": 864.25,
+          "direction": "right"
+        }
+      },
+      {
+        "identification": false,
+        "id": "cacd58c6-329f-477d-9da7-47a60a59d1d6",
+        "relationshipType": "ZeroOneN",
+        "start": {
+          "tableId": "56d99412-a474-4f46-b239-77292cc80763",
+          "columnIds": [
+            "39480c9f-7931-4a49-841e-5b687673c4ac"
+          ],
+          "x": 564,
+          "y": 160.25,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "46295956-b0d1-41c5-b6cb-6b5505b10904",
+          "columnIds": [
+            "a6edbfff-e479-4560-a17b-1924ff783717"
+          ],
+          "x": 444,
+          "y": 160,
+          "direction": "right"
+        }
+      },
+      {
+        "identification": false,
+        "id": "9fae3267-b580-4017-bef1-93da372765e9",
+        "relationshipType": "ZeroOneN",
+        "start": {
+          "tableId": "56d99412-a474-4f46-b239-77292cc80763",
+          "columnIds": [
+            "39480c9f-7931-4a49-841e-5b687673c4ac"
+          ],
+          "x": 925,
+          "y": 160.25,
+          "direction": "right"
+        },
+        "end": {
+          "tableId": "48cab8ac-a9de-4d41-97c9-f2ac0e3b056a",
+          "columnIds": [
+            "52f12873-7613-4873-8bce-d3d3ca26e797"
+          ],
+          "x": 1045.5,
+          "y": 158.75,
+          "direction": "left"
+        }
+      }
+    ],
+    "draw": null
+  }
+}

@@ -22,7 +22,7 @@ export class MailService {
     image: string,
   ): Promise<void> {
     const options = {
-      from: 'rubes.claes@gmail.com',
+      from: `RubenBot <rubebotto@gmail.com>`,
       to: to,
       subject: subject,
       text: content,
