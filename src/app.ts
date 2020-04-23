@@ -30,7 +30,7 @@ const db = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@ds113906.mlab.com:1390
 
 Connect({ db });
 
-const crawler = new Crawler(false);
+const crawler = new Crawler(true);
 
 const crawlColruytHasselt = async () => {
   await crawler.launchPuppeteer();
@@ -42,11 +42,9 @@ const crawlColruytHasselt = async () => {
   await crawler.closeBrowser();
 };
 
-crawlColruytHasselt();
-
 schedule.scheduleJob('*/15 * * * *', () => {
   console.log(`Cron started.`);
-  //crawlColruytHasselt();
+  crawlColruytHasselt();
 });
 
 process.on('SIGTERM', (signal) => {
