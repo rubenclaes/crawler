@@ -54,6 +54,7 @@ export default class Crawler {
     await this.browser.close();
     console.info('Crawlerservice ended');
   }
+
   async scrapeColruyt(pageUrl?: string, supermarkets?: string[]) {
     console.log('Start scraping Colruyt');
 
@@ -85,14 +86,11 @@ export default class Crawler {
     });
 
     // Take screenshot but wait until table is loaded
-    await this.page
-      .waitForSelector(
-        '#mainContent > div > div > div.col-md-9 > div > div > table',
-      )
-      .then(async () => {
-        // take a picture
-        await this.takeScreenshot('beschikbaarheid.png', true);
-      });
+    await this.page.waitForSelector(
+      '#mainContent > div > div > div.col-md-9 > div > div > table',
+    );
+
+    await this.takeScreenshot('beschikbaarheid.png', true);
 
     // Scrape Supermarkets
     const scrapedSupermarkets = await this.scrapeSupermarkets();
@@ -201,7 +199,7 @@ export default class Crawler {
     await findSupermarketAndUpdate(dbId, scrapedSupermarket);
   }
 
-  async takeScreenshot(path: string, fullPage: boolean): Promise<void> {
+  async takeScreenshot(path: string, fullPage: boolean) {
     // take a picture
     await this.page.screenshot({
       path: path,

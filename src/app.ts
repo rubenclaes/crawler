@@ -30,8 +30,9 @@ const db = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@ds113906.mlab.com:1390
 
 Connect({ db });
 
+const crawler = new Crawler(true);
+
 const crawlColruytHasselt = async () => {
-  const crawler = new Crawler(true);
   await crawler.launchPuppeteer();
   try {
     await crawler.scrapeColruyt();
