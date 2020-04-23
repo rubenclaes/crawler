@@ -141,7 +141,7 @@ export default class Crawler {
     return scrapedSupermarkets;
   }
 
-  async checkDifferences(scrapedSupermarkets) {
+  async checkDifferences(scrapedSupermarkets: any) {
     console.log('Checking Differences');
 
     const dbSupermarkets = await findSupermarkets(this.supermarkets);
