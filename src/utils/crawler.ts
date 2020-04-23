@@ -11,6 +11,7 @@ import {
   findSupermarketAndUpdate,
 } from '../controllers/supermarketController';
 import { SupermarketDocument } from '../models/supermarket';
+import { findUsers } from '../controllers/userController';
 
 /**
  *  Crawler Class
@@ -179,10 +180,15 @@ export default class Crawler {
   }
 
   async sendEmail(supermarketData: any) {
+    const users = (await findUsers()).map((user) => {
+      return user['email'];
+    });
+
+    console.log(users);
     this.mailService
       .sendMail(
-        ['ruben.claes@euri.com', 'noa-swinnen@hotmail.com'],
-        'dbSupermarket.name',
+        users,
+        supermarketData.name,
         supermarketData,
         'beschikbaarheid.png',
       )
