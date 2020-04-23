@@ -42,7 +42,7 @@ const crawlColruytHasselt = async () => {
   }
 };
 
-schedule.scheduleJob('*/10 * * * *', () => {
+schedule.scheduleJob('*/15 * * * *', () => {
   console.log(`Cron started.`);
   crawlColruytHasselt();
 });
