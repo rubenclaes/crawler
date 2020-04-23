@@ -42,9 +42,9 @@ const crawlColruytHasselt = async () => {
   await crawler.closeBrowser();
 };
 
-schedule.scheduleJob('*/15 * * * *', () => {
+schedule.scheduleJob('*/15 * * * *', async () => {
   console.log(`Cron started.`);
-  crawlColruytHasselt();
+  await crawlColruytHasselt();
 });
 
 process.on('SIGTERM', (signal) => {

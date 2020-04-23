@@ -8,7 +8,7 @@
     "dev": "tsnd --respawn -r @babel/register src/app.ts",
     "build": "babel ./src -d ./dist --extensions .ts",
     "typecheck": "tsc",
-    "start": "node dist/app.js",
+    "start": "node  --trace-warnings dist/app.js",
     "lint:base": "eslint --ext .js,.json,.ts",
     "lint": "yarn lint:base 'src/**'"
   },
