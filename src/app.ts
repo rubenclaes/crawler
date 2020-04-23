@@ -35,11 +35,10 @@ const crawlColruytHasselt = async () => {
   await crawler.launchPuppeteer();
   try {
     await crawler.scrapeColruyt();
-    await crawler.closeBrowser();
-    return 'all done';
   } catch (error) {
     console.error(error);
   }
+  await crawler.closeBrowser();
 };
 
 schedule.scheduleJob('*/15 * * * *', () => {
