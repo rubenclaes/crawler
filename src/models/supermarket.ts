@@ -10,6 +10,7 @@ export type SupermarketDocument = Document & {
     day5: string;
     day6: string;
   };
+  users: [];
 };
 
 const supermarketSchema: Schema = new Schema(
@@ -23,6 +24,12 @@ const supermarketSchema: Schema = new Schema(
       day5: String,
       day6: String,
     },
+    users: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
 
   { timestamps: true },

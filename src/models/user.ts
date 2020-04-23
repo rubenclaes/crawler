@@ -4,6 +4,7 @@ export type UserDocument = Document & {
   name: string;
   email: string;
   subscribed: boolean;
+  supermarkets: [];
 };
 
 const userSchema: Schema = new Schema(
@@ -11,6 +12,12 @@ const userSchema: Schema = new Schema(
     name: { type: String, required: true, unique: true },
     email: String,
     subscribed: Boolean,
+    supermarkets: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Supermarket',
+      },
+    ],
   },
 
   { timestamps: true },
