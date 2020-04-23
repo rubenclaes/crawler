@@ -4,6 +4,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import cron from 'node-cron';
 
 /**
  * App Variables
@@ -42,7 +43,12 @@ const crawlColruytHasselt = async () => {
   return 'all done';
 };
 
-crawlColruytHasselt();
+const cronjob = cron.schedule('10 * * * *', () => {
+  console.log(`Cron started.`);
+  crawlColruytHasselt();
+});
+
+cronjob.start();
 
 process.on('SIGTERM', (signal) => {
   console.log(`Process ${process.pid} has been interrupted`);
