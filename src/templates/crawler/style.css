@@ -1,0 +1,64 @@
+.header {
+  background: #8a8a8a;
+}
+.header .columns {
+  padding-bottom: 0;
+}
+.header p {
+  color: #fff;
+  padding-top: 15px;
+}
+.header .wrapper-inner {
+  padding: 20px;
+}
+.header .container {
+  background: transparent;
+}
+table.button.facebook table td {
+  background: #3b5998 !important;
+  border-color: #3b5998;
+}
+table.button.twitter table td {
+  background: #1daced !important;
+  border-color: #1daced;
+}
+table.button.google table td {
+  background: #db4a39 !important;
+  border-color: #db4a39;
+}
+.wrapper.secondary {
+  background: #f3f3f3;
+}
+.two-column {
+  text-align: center;
+  font-size: 0;
+}
+.two-column .column {
+  width: 100%;
+  max-width: 300px;
+  display: inline-block;
+  vertical-align: top;
+}
+.contents {
+  width: 100%;
+}
+.two-column .contents {
+  font-size: 14px;
+  text-align: left;
+}
+.two-column img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+}
+.two-column .text {
+  padding-top: 10px;
+}
+.inner {
+  padding: 10px;
+}
+table {
+  border-spacing: 0;
+  color: #333333;
+  font-family: Arial, sans-serif;
+}

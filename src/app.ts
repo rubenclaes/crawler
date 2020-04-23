@@ -4,7 +4,8 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import cron from 'node-cron';
+
+import schedule from 'node-schedule';
 
 /**
  * App Variables
@@ -32,23 +33,19 @@ Connect({ db });
 const crawlColruytHasselt = async () => {
   const crawler = new Crawler(true);
   await crawler.launchPuppeteer();
-
   try {
     await crawler.scrapeColruyt();
     await crawler.closeBrowser();
+    return 'all done';
   } catch (error) {
     console.error(error);
   }
-
-  return 'all done';
 };
 
-const cronjob = cron.schedule('10 * * * *', () => {
+schedule.scheduleJob('*/10 * * * *', () => {
   console.log(`Cron started.`);
   crawlColruytHasselt();
 });
-
-cronjob.start();
 
 process.on('SIGTERM', (signal) => {
   console.log(`Process ${process.pid} has been interrupted`);

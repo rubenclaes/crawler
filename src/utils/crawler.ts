@@ -21,7 +21,6 @@ export default class Crawler {
     `HASSELT (COLRUYT)`,
     `NEERPELT (COLRUYT)`,
     `MOL (COLRUYT)`,
-    `AALTER (COLRUYT)`,
   ];
 
   private mailService = new MailService();
@@ -163,23 +162,12 @@ export default class Crawler {
         console.log(result);
 
         if (Object.values(scrapedSupermarkets[i].week).includes(search)) {
-          const text = `<h1>${dbSupermarket.name}</h1><p> Er zijn terug slots vrij in ${dbSupermarket.name}!</p><p> Dag1: ${scrapedSupermarkets[i].week.day1} Dag2: ${scrapedSupermarkets[i].week.day2} Dag3: ${scrapedSupermarkets[i].week.day3} Dag4: ${scrapedSupermarkets[i].week.day4} Dag5: ${scrapedSupermarkets[i].week.day5} Dag6: ${scrapedSupermarkets[i].week.day6} </p> <p>https://colruyt.collectandgo.be/cogo/nl/afhaalpunt-beschikbaarheid</p> `;
-
-          this.mailService
-            .sendMail(
-              ['noa-swinnen@hotmail.com', 'ruben.claes@euri.com'],
-              dbSupermarket.name,
-              text,
-              'beschikbaarheid.png',
-            )
-            .then((msg) => {
-              console.log(`sendMail result :(${msg})`);
-            });
+          const text = `<h1>${scrapedSupermarkets[i].name}</h1><p> Er zijn terug slots vrij in ${scrapedSupermarkets[i].name}!</p><p> Dag1: ${scrapedSupermarkets[i].week.day1} Dag2: ${scrapedSupermarkets[i].week.day2} Dag3: ${scrapedSupermarkets[i].week.day3} Dag4: ${scrapedSupermarkets[i].week.day4} Dag5: ${scrapedSupermarkets[i].week.day5} Dag6: ${scrapedSupermarkets[i].week.day6} </p> <p>https://colruyt.collectandgo.be/cogo/nl/afhaalpunt-beschikbaarheid</p> `;
+          await this.sendEmail(scrapedSupermarkets[i]);
         }
       }
     });
 
-    //async sendEmail() {}
     //async formatData() {}
 
     //console.log(differences);
@@ -189,6 +177,20 @@ export default class Crawler {
       // Save the foundsupermrkets in db
     }
   }
+
+  async sendEmail(supermarketData: any) {
+    this.mailService
+      .sendMail(
+        ['ruben.claes@euri.com', 'noa-swinnen@hotmail.com'],
+        'dbSupermarket.name',
+        supermarketData,
+        'beschikbaarheid.png',
+      )
+      .then((msg) => {
+        console.log(`sendMail result :(${msg})`);
+      });
+  }
+
   async saveData(dbId: any, scrapedSupermarket: SupermarketDocument) {
     await findSupermarketAndUpdate(dbId, scrapedSupermarket);
   }
