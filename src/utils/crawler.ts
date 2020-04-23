@@ -68,7 +68,7 @@ export default class Crawler {
 
     // Wait for new Page created
     this.page = await this.browser.newPage();
-    console.log('new Page created');
+    console.log('New Page created');
     // Turns request interceptor on
     await this.page.setRequestInterception(true);
 
@@ -90,7 +90,14 @@ export default class Crawler {
       '#mainContent > div > div > div.col-md-9 > div > div > table',
     );
 
-    await this.takeScreenshot('beschikbaarheid.png', true);
+    const table = await this.page.$(
+      '#mainContent > div > div > div.col-md-9 > div > div > table',
+    );
+
+    if (table)
+      await this.page.screenshot({ path: 'beschikbaarheid.png', fullPage: true });
+
+    // await this.takeScreenshot('beschikbaarheid.png', true);
 
     // Scrape Supermarkets
     const scrapedSupermarkets = await this.scrapeSupermarkets();
