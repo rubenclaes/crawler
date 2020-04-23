@@ -10,7 +10,7 @@ import {
   findSupermarkets,
   findSupermarketAndUpdate,
 } from '../controllers/supermarketController';
-import { SupermarketDocument } from '../models/supermarket';
+
 import { findUsers } from '../controllers/userController';
 
 /**
@@ -95,7 +95,10 @@ export default class Crawler {
     );
 
     if (table)
-      await this.page.screenshot({ path: 'beschikbaarheid.png', fullPage: true });
+      await this.page.screenshot({
+        path: 'beschikbaarheid.png',
+        fullPage: true,
+      });
 
     // await this.takeScreenshot('beschikbaarheid.png', true);
 
@@ -138,7 +141,7 @@ export default class Crawler {
     return scrapedSupermarkets;
   }
 
-  async checkDifferences(scrapedSupermarkets: SupermarketDocument[]) {
+  async checkDifferences(scrapedSupermarkets) {
     console.log('Checking Differences');
 
     const dbSupermarkets = await findSupermarkets(this.supermarkets);
@@ -202,7 +205,7 @@ export default class Crawler {
       });
   }
 
-  async saveData(dbId: any, scrapedSupermarket: SupermarketDocument) {
+  async saveData(dbId: any, scrapedSupermarket: any) {
     await findSupermarketAndUpdate(dbId, scrapedSupermarket);
   }
 
