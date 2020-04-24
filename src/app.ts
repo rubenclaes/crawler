@@ -39,7 +39,7 @@ const crawlColruytHasselt = async () => {
   await crawler.closeBrowser();
 };
 
-await crawlColruytHasselt();
+crawlColruytHasselt();
 
 process.on('SIGTERM', (signal) => {
   console.log(`Process ${process.pid} has been interrupted`);
