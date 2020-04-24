@@ -9,7 +9,7 @@ import helmet from 'helmet';
  * App Variables
  */
 import Crawler from './utils/crawler';
-import Connect from './services/mongo';
+import connect from './services/mongo';
 import { PORT, MONGO_USERNAME, MONGO_PASSWORD } from './utils/config';
 
 const port: number = parseInt(PORT as string, 10);
@@ -26,7 +26,7 @@ const db = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@ds113906.mlab.com:1390
 //app.use(cors());
 //app.use(express.json());
 
-Connect({ db });
+connect({ db });
 
 const crawlColruytHasselt = async () => {
   const crawler = new Crawler(true);
