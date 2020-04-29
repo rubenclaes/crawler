@@ -12,6 +12,7 @@ import {
 } from '../controllers/supermarketController';
 
 import { findUsers } from '../controllers/userController';
+import { SupermarketDocument } from '../models/supermarket';
 
 /**
  *  Crawler Class
@@ -129,16 +130,13 @@ export default class Crawler {
 
         if (changes) {
           console.log(`Er is een verandering gedetecteerd`);
-          console.log(filteredSupermarket);
           const dbId = dbSupermarket._id;
-          console.log(dbId);
+
           //4. Save scrapedSupermarket Data
           await this.saveData(dbId, filteredSupermarket);
 
           //5. Notify users if there are changes
           const search = 'beschikbaar';
-          const result = Object.values(filteredSupermarket).includes(search);
-          console.log(result);
 
           if (Object.values(filteredSupermarket.week).includes(search)) {
             //const text = `<h1>${filteredSupermarket.name}</h1><p> Er zijn terug slots vrij in ${filteredSupermarket.name}!</p><p> Dag1: ${filteredSupermarket.week.day1} Dag2: ${filteredSupermarket.week.day2} Dag3: ${filteredSupermarket.week.day3} Dag4: ${filteredSupermarket.week.day4} Dag5: ${filteredSupermarket.week.day5} Dag6: ${filteredSupermarket.week.day6} </p> <p>https://colruyt.collectandgo.be/cogo/nl/afhaalpunt-beschikbaarheid</p> `;
@@ -217,25 +215,24 @@ export default class Crawler {
   }
 
   checkDifferences(
-    scrapedSupermarket: any,
-    dbSupermarket: any,
+    scrapedSupermarket: SupermarketDocument,
+    dbSupermarket: SupermarketDocument,
     hdrDates: any,
   ): boolean {
     console.log(`Checking Differences`);
 
     const noOfdays = Object.keys(hdrDates).length;
 
-    console.log(dbSupermarket);
-    console.log(scrapedSupermarket);
-
     for (let index = 0; index < noOfdays; index++) {
-      console.log(index);
-      console.log(dbSupermarket.week[index]);
-      console.log(scrapedSupermarket.week[index]);
+      console.log(dbSupermarket.week);
+      console.log(scrapedSupermarket.week);
       if (
-        Object.values(dbSupermarket.week)[index] !==
+        Object.values(dbSupermarket.week)[1 + index] !==
         Object.values(scrapedSupermarket.week)[index]
       ) {
+        console.log(JSON.stringify(Object.values(dbSupermarket.week)));
+
+        console.log(Object.values(scrapedSupermarket.week));
         return true;
       }
     }
