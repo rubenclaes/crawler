@@ -56,7 +56,7 @@ export default class Crawler {
   }
 
   async scrapeColruyt(pageUrl?: string, supermarkets?: string[]) {
-    console.log('Start scraping Colruyt');
+    console.log(`Start scraping Collect and Go`);
 
     if (pageUrl) {
       this.pageUrl = pageUrl;
@@ -72,7 +72,7 @@ export default class Crawler {
     // Turns request interceptor on
     await this.page.setRequestInterception(true);
 
-    // if the page makes a  request to a resource type of image or stylesheet then abort that request
+    // if the page makes a request to a resource type of image or stylesheet then abort that request
     this.page.on('request', (request: any) => {
       if (request.resourceType() === 'image') request.abort();
       else request.continue();
@@ -95,28 +95,103 @@ export default class Crawler {
     );
 
     if (table)
-      await this.page.screenshot({
-        path: 'beschikbaarheid.png',
-        fullPage: true,
-      });
+      await this.page
+        .screenshot({
+          path: 'beschikbaarheid.png',
+          fullPage: true,
+        })
+        .then(() => console.log(`Availability picture taken.`));
 
     // await this.takeScreenshot('beschikbaarheid.png', true);
 
-    // Scrape Supermarkets
+    // 1. Scrape the current days in thead row.
+    const scrapeTheadData = await this.scrapeTheadData();
+
+    // 2. Scrape Supermarkets
     const scrapedSupermarkets = await this.scrapeSupermarkets();
 
+    // 3. Filter scraped supermarkets to get only the one we need data from.
     const filteredSupermarkets = this.filterScrapedData(
       scrapedSupermarkets,
       this.supermarkets,
     );
 
+    // 3. Check differences between scraped supermarkets and dbsupermarkets
     if (filteredSupermarkets) {
-      // Check Differnces
-      await this.checkDifferences(filteredSupermarkets);
+      const dbSupermarkets = await findSupermarkets(this.supermarkets);
+      dbSupermarkets.forEach(async (dbSupermarket: any, i) => {
+        const filteredSupermarket = filteredSupermarkets[i];
+        const changes = this.checkDifferences(
+          filteredSupermarket,
+          dbSupermarket,
+          scrapeTheadData.hdrDates,
+        );
+
+        if (changes) {
+          console.log(`Er is een verandering gedetecteerd`);
+          console.log(filteredSupermarket);
+          const dbId = dbSupermarket._id;
+          console.log(dbId);
+          //4. Save scrapedSupermarket Data
+          await this.saveData(dbId, filteredSupermarket);
+
+          //5. Notify users if there are changes
+          const search = 'beschikbaar';
+          const result = Object.values(filteredSupermarket).includes(search);
+          console.log(result);
+
+          if (Object.values(filteredSupermarket.week).includes(search)) {
+            //const text = `<h1>${filteredSupermarket.name}</h1><p> Er zijn terug slots vrij in ${filteredSupermarket.name}!</p><p> Dag1: ${filteredSupermarket.week.day1} Dag2: ${filteredSupermarket.week.day2} Dag3: ${filteredSupermarket.week.day3} Dag4: ${filteredSupermarket.week.day4} Dag5: ${filteredSupermarket.week.day5} Dag6: ${filteredSupermarket.week.day6} </p> <p>https://colruyt.collectandgo.be/cogo/nl/afhaalpunt-beschikbaarheid</p> `;
+            await this.sendEmail(filteredSupermarket, scrapeTheadData);
+          }
+        } else {
+          //5. No changes
+          console.log(`Geen verandering gedetecteerd`);
+        }
+      });
     }
   }
 
+  async scrapeTheadData() {
+    console.info(`Scraping thead data`);
+
+    const scrapedCurrentDays = await this.page.evaluate(() => {
+      const rowNodeList = document.querySelectorAll('table thead tr th');
+      const ths = Array.from(rowNodeList);
+
+      const [
+        hdrTtl,
+        hdrDate1,
+        hdrDate2,
+        hdrDate3,
+        hdrDate4,
+        hdrDate5,
+        hdrDate6,
+      ] = ths.map((th) => {
+        return th.textContent;
+      });
+
+      console.log(hdrTtl);
+
+      return {
+        hdrTtl,
+        hdrDates: {
+          hdrDate1,
+          hdrDate2,
+          hdrDate3,
+          hdrDate4,
+          hdrDate5,
+          hdrDate6,
+        },
+      };
+    });
+
+    return scrapedCurrentDays;
+  }
+
   async scrapeSupermarkets() {
+    console.log(`Start scraping supermarkets`);
+
     const scrapedSupermarkets = await this.page.evaluate(() => {
       const rowNodeList = document.querySelectorAll(
         '#mainContent > div > div > div.col-md-9 > div > div > table > tbody > tr',
@@ -137,57 +212,38 @@ export default class Crawler {
       });
     });
 
-    //console.log(scrapedSupermarkets);
+    // console.log(scrapedSupermarkets);
     return scrapedSupermarkets;
   }
 
-  async checkDifferences(scrapedSupermarkets: any) {
-    console.log('Checking Differences');
+  checkDifferences(
+    scrapedSupermarket: any,
+    dbSupermarket: any,
+    hdrDates: any,
+  ): boolean {
+    console.log(`Checking Differences`);
 
-    const dbSupermarkets = await findSupermarkets(this.supermarkets);
+    const noOfdays = Object.keys(hdrDates).length;
 
-    //const differences = diff(scrapedSupermarkets, foundSupermarkets);
+    console.log(dbSupermarket);
+    console.log(scrapedSupermarket);
 
-    dbSupermarkets.forEach(async (dbSupermarket, i) => {
-      const {
-        week: { day1, day2, day3, day4, day5, day6 },
-      } = dbSupermarket;
+    for (let index = 0; index < noOfdays; index++) {
+      console.log(index);
+      console.log(dbSupermarket.week[index]);
+      console.log(scrapedSupermarket.week[index]);
       if (
-        dbSupermarket.week.day1 !== scrapedSupermarkets[i].week.day1 ||
-        dbSupermarket.week.day2 !== scrapedSupermarkets[i].week.day2 ||
-        dbSupermarket.week.day3 !== scrapedSupermarkets[i].week.day3 ||
-        dbSupermarket.week.day4 !== scrapedSupermarkets[i].week.day4 ||
-        dbSupermarket.week.day5 !== scrapedSupermarkets[i].week.day5 ||
-        dbSupermarket.week.day6 !== scrapedSupermarkets[i].week.day6
+        Object.values(dbSupermarket.week)[index] !==
+        Object.values(scrapedSupermarket.week)[index]
       ) {
-        console.log('verandering');
-        console.log(scrapedSupermarkets[i]);
-        const dbId = dbSupermarket._id;
-        console.log(dbId);
-        await this.saveData(dbId, scrapedSupermarkets[i]);
-
-        const search = 'beschikbaar';
-        const result = Object.values(scrapedSupermarkets[i]).includes(search);
-        console.log(result);
-
-        if (Object.values(scrapedSupermarkets[i].week).includes(search)) {
-          const text = `<h1>${scrapedSupermarkets[i].name}</h1><p> Er zijn terug slots vrij in ${scrapedSupermarkets[i].name}!</p><p> Dag1: ${scrapedSupermarkets[i].week.day1} Dag2: ${scrapedSupermarkets[i].week.day2} Dag3: ${scrapedSupermarkets[i].week.day3} Dag4: ${scrapedSupermarkets[i].week.day4} Dag5: ${scrapedSupermarkets[i].week.day5} Dag6: ${scrapedSupermarkets[i].week.day6} </p> <p>https://colruyt.collectandgo.be/cogo/nl/afhaalpunt-beschikbaarheid</p> `;
-          await this.sendEmail(scrapedSupermarkets[i]);
-        }
+        return true;
       }
-    });
-
-    //async formatData() {}
-
-    //console.log(differences);
-    //console.log(result);
-
-    if (dbSupermarkets.length == 0) {
-      // Save the foundsupermrkets in db
     }
+
+    return false;
   }
 
-  async sendEmail(supermarketData: any) {
+  async sendEmail(supermarketData: any, scrapeTheadData: any) {
     const users = (await findUsers()).map((user) => {
       return user['email'];
     });
@@ -198,6 +254,7 @@ export default class Crawler {
         users,
         supermarketData.name,
         supermarketData,
+        scrapeTheadData,
         'beschikbaarheid.png',
       )
       .then((msg) => {

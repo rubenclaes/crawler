@@ -76,8 +76,19 @@
                 font-family: Verdana, Geneva, sans-serif;
               "
             >
-              <%= name %>
+              <%= data.name %>
             </p>
+            <p
+              style="
+                color: #262626;
+                font-size: 32px;
+                text-align: center;
+                font-family: Verdana, Geneva, sans-serif;
+              "
+            >
+              <%= thData.hdrTtl %>
+            </p>
+
             <b
               style="
                 color: #000000;
@@ -111,45 +122,45 @@
                     >
                       <thead>
                         <tr align="center">
-                          <th>Morgen</th>
-                          <th>Overmorgen</th>
-                          <th>Over 3 dagen</th>
-                          <th>Over 4 dagen</th>
-                          <th>Over 5 dagen</th>
-                          <th>Over 6 dagen</th>
+                          <th><%= thData.hdrDates.hdrDate1 %></th>
+                          <th><%= thData.hdrDates.hdrDate2 %></th>
+                          <th><%= thData.hdrDates.hdrDate3 %></th>
+                          <th><%= thData.hdrDates.hdrDate4 %></th>
+                          <th><%= thData.hdrDates.hdrDate5 %></th>
+                          <th><%= thData.hdrDates.hdrDate6 %></th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <%if (week.day1 == "beschikbaar") { %>
-                          <td bgcolor="#D4EED1"><%= week.day1 %></td>
+                          <%if (data.week.day1 == "beschikbaar") { %>
+                          <td bgcolor="#D4EED1"><%= data.week.day1 %></td>
                           <% } else { %>
-                          <td><%= week.day1 %><% } %></td>
+                          <td><%= data.week.day1 %><% } %></td>
 
-                          <%if (week.day2 == "beschikbaar") { %>
-                          <td bgcolor="#D4EED1"><%= week.day2 %></td>
+                          <%if (data.week.day2 == "beschikbaar") { %>
+                          <td bgcolor="#D4EED1"><%= data.week.day2 %></td>
                           <% } else { %>
-                          <td><%= week.day2 %><% } %></td>
+                          <td><%= data.week.day2 %><% } %></td>
 
-                          <%if (week.day3 == "beschikbaar") { %>
-                          <td bgcolor="#D4EED1"><%= week.day3 %></td>
+                          <%if (data.week.day3 == "beschikbaar") { %>
+                          <td bgcolor="#D4EED1"><%= data.week.day3 %></td>
                           <% } else { %>
-                          <td><%= week.day3 %><% } %></td>
+                          <td><%= data.week.day3 %><% } %></td>
 
-                          <%if (week.day4 == "beschikbaar") { %>
-                          <td bgcolor="#D4EED1"><%= week.day4 %></td>
+                          <%if (data.week.day4 == "beschikbaar") { %>
+                          <td bgcolor="#D4EED1"><%= data.week.day4 %></td>
                           <% } else { %>
-                          <td><%= week.day4 %><% } %></td>
+                          <td><%= data.week.day4 %><% } %></td>
 
-                          <%if (week.day5 == "beschikbaar") { %>
-                          <td bgcolor="#D4EED1"><%= week.day5 %></td>
+                          <%if (data.week.day5 == "beschikbaar") { %>
+                          <td bgcolor="#D4EED1"><%= data.week.day5 %></td>
                           <% } else { %>
-                          <td><%= week.day5 %><% } %></td>
+                          <td><%= data.week.day5 %><% } %></td>
 
-                          <%if (week.day6 == "beschikbaar") { %>
-                          <td bgcolor="#D4EED1"><%= week.day6 %></td>
+                          <%if (data.week.day6 == "beschikbaar") { %>
+                          <td bgcolor="#D4EED1"><%= data.week.day6 %></td>
                           <% } else { %>
-                          <td><%= week.day6 %><% } %></td>
+                          <td><%= data.week.day6 %><% } %></td>
                         </tr>
                       </tbody>
                     </table>

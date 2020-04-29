@@ -21,6 +21,7 @@ export class MailService {
     to: string[],
     subject: string,
     data: object,
+    thData: object,
     image: string,
   ): Promise<void> {
     try {
@@ -41,7 +42,7 @@ export class MailService {
       }; */
 
       const html = await ejs
-        .renderFile(template, data)
+        .renderFile(template, { data, thData })
         .then((outputs) => outputs);
 
       const options = {
